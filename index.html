@@ -92,12 +92,6 @@
             transform: scale(1.04);
             font-weight: 800;
         }
-        .num-pending {
-            background: rgba(120, 53, 15, 0.45) !important;
-            border-color: rgba(251, 191, 36, 0.55) !important;
-            color: rgba(253, 230, 138, 0.85) !important;
-            cursor: not-allowed;
-        }
         .num-sold {
             background: rgba(5, 11, 28, 0.8) !important;
             border-color: rgba(239, 35, 60, 0.3) !important;
@@ -187,22 +181,18 @@
                         POR <span class="text-white bg-gradient-to-r from-aero-crimson to-aero-red px-3 py-0.5 rounded-lg shadow-md shadow-aero-red/30">R$ 5,00</span> VOCÊ PODE NOS AJUDAR A VOAR MAIS ALTO!
                     </p>
 
-                    <div class="grid grid-cols-4 gap-2 sm:gap-3 max-w-lg mx-auto lg:mx-0">
-                        <div class="bg-aero-950/80 border border-blue-400/20 rounded-2xl p-2.5 sm:p-3 text-center">
-                            <p class="text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200/70">Cota</p>
-                            <p class="font-display text-base sm:text-xl font-extrabold text-white">R$ 5</p>
+                    <div class="grid grid-cols-3 gap-3 max-w-md mx-auto lg:mx-0">
+                        <div class="bg-aero-950/80 border border-blue-400/20 rounded-2xl p-3 text-center">
+                            <p class="text-[11px] uppercase tracking-wider text-blue-200/70">Cota</p>
+                            <p class="font-display text-lg sm:text-xl font-extrabold text-white">R$ 5,00</p>
                         </div>
-                        <div class="bg-aero-950/80 border border-blue-400/20 rounded-2xl p-2.5 sm:p-3 text-center">
-                            <p class="text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200/70">Livres</p>
-                            <p id="stat-available" class="font-display text-base sm:text-xl font-extrabold text-sky-400">85</p>
+                        <div class="bg-aero-950/80 border border-blue-400/20 rounded-2xl p-3 text-center">
+                            <p class="text-[11px] uppercase tracking-wider text-blue-200/70">Disponíveis</p>
+                            <p id="stat-available" class="font-display text-lg sm:text-xl font-extrabold text-sky-400">85</p>
                         </div>
-                        <div class="bg-aero-950/80 border border-amber-400/30 rounded-2xl p-2.5 sm:p-3 text-center">
-                            <p class="text-[10px] sm:text-[11px] uppercase tracking-wider text-amber-200/70">Reservados</p>
-                            <p id="stat-pending" class="font-display text-base sm:text-xl font-extrabold text-amber-400">0</p>
-                        </div>
-                        <div class="bg-aero-950/80 border border-aero-red/30 rounded-2xl p-2.5 sm:p-3 text-center">
-                            <p class="text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200/70">Vendidos</p>
-                            <p id="stat-sold" class="font-display text-base sm:text-xl font-extrabold text-aero-red">15</p>
+                        <div class="bg-aero-950/80 border border-aero-red/30 rounded-2xl p-3 text-center">
+                            <p class="text-[11px] uppercase tracking-wider text-blue-200/70">Vendidos</p>
+                            <p id="stat-sold" class="font-display text-lg sm:text-xl font-extrabold text-aero-red">15</p>
                         </div>
                     </div>
                 </div>
@@ -238,7 +228,7 @@
                 <div class="flex justify-between items-center text-xs font-semibold mb-2">
                     <span class="text-blue-100 flex items-center gap-2">
                         <svg viewBox="0 0 200 200" class="w-4 h-4 rounded-full inline-block"><use href="#tkvm-crest-logo"/></svg>
-                        <span>Progresso Confirmado da Rifa TKVm (400 a 499)</span>
+                        <span>Progresso da Rifa TKVm (400 a 499)</span>
                     </span>
                     <span id="progress-percent" class="text-sky-300 font-bold">15% vendidos</span>
                 </div>
@@ -271,28 +261,24 @@
                 </div>
 
                 <!-- Legend -->
-                <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-xs mb-5 pb-4 border-b border-blue-400/15">
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-3.5 h-3.5 rounded-md bg-aero-800 border border-blue-400/30 inline-block"></span>
+                <div class="flex flex-wrap items-center gap-4 text-xs mb-5 pb-4 border-b border-blue-400/15">
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md bg-aero-800 border border-blue-400/30 inline-block"></span>
                         <span class="text-blue-100">Disponível</span>
                     </div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-3.5 h-3.5 rounded-md bg-aero-red border border-rose-300 inline-block shadow shadow-aero-red/50"></span>
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md bg-aero-red border border-rose-300 inline-block shadow shadow-aero-red/50"></span>
                         <span class="text-white font-semibold">Selecionado</span>
                     </div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-3.5 h-3.5 rounded-md bg-amber-900/60 border border-amber-400/60 inline-block"></span>
-                        <span class="text-amber-300">Aguardando PIX</span>
-                    </div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="w-3.5 h-3.5 rounded-md bg-aero-950 border border-aero-red/35 inline-block relative overflow-hidden">
+                    <div class="flex items-center gap-2">
+                        <span class="w-4 h-4 rounded-md bg-aero-950 border border-aero-red/35 inline-block relative overflow-hidden">
                             <span class="block w-full h-0.5 bg-aero-red/70 rotate-45 translate-y-1.5"></span>
                         </span>
                         <span class="text-blue-200/60">Vendido</span>
                     </div>
                     <button onclick="selectRandomLucky()" class="ml-auto text-xs font-bold text-white hover:bg-blue-500 flex items-center gap-1.5 bg-blue-600/80 border border-blue-400/40 px-3 py-1.5 rounded-lg transition shadow-sm">
                         <i class="fa-solid fa-dice"></i>
-                        <span>Aleatório</span>
+                        <span>Escolher Aleatório</span>
                     </button>
                 </div>
 
@@ -306,7 +292,7 @@
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
                             <i class="fa-solid fa-ticket text-aero-red"></i>
-                            <span>Reservar Bilhetes</span>
+                            <span>Finalizar Compra</span>
                         </h3>
                         <button id="clear-selection-btn" onclick="clearSelection()" class="hidden text-xs text-rose-400 hover:text-rose-300 font-semibold">
                             Limpar seleção
@@ -359,13 +345,13 @@
                         <button type="submit" id="submit-order-btn" disabled
                             class="w-full py-3.5 px-6 rounded-xl font-display font-extrabold text-sm sm:text-base uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed bg-gradient-to-r from-aero-red via-rose-600 to-blue-600 hover:from-rose-500 hover:to-blue-500 text-white shadow-aero-red/30 border border-white/15">
                             <i class="fa-brands fa-pix text-lg"></i>
-                            <span>Gerar PIX e Reservar</span>
+                            <span>Pagar com PIX e Garantir</span>
                         </button>
                     </form>
 
                     <p class="text-[11px] text-center text-blue-200/65 mt-4 leading-relaxed">
                         <i class="fa-solid fa-shield-halved text-sky-400 mr-1"></i>
-                        Seu bilhete fica reservado enquanto você realiza o PIX e é validado como <strong>Vendido</strong> logo após a conferência do comprovante.
+                        Pagamento via PIX direto para a chave CPF da equipe TKVm. Assim que confirmado, o site atualiza automaticamente para todos!
                     </p>
                 </div>
             </div>
@@ -385,7 +371,7 @@
         </p>
     </footer>
 
-    <!-- PIX Payment Modal (Reservation + Proof Submission) -->
+    <!-- PIX Payment Modal -->
     <div id="pix-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
         <div class="bg-aero-900 border border-aero-red/45 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative overflow-y-auto max-h-[92vh]">
             <button onclick="closePixModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-blue-950 hover:bg-aero-red/20 flex items-center justify-center text-blue-200 hover:text-white transition">
@@ -397,7 +383,7 @@
                     <svg viewBox="0 0 200 200" class="w-full h-full"><use href="#tkvm-crest-logo"/></svg>
                 </div>
                 <h3 class="font-display text-2xl font-extrabold text-white">Pagamento via PIX • TKV<span class="text-aero-red font-serif italic">m</span></h3>
-                <p class="text-xs text-blue-200/80 mt-1">Faça a transferência e envie o comprovante para confirmar sua compra.</p>
+                <p class="text-xs text-blue-200/80 mt-1">Transfira o valor abaixo e confirme para atualizar a cartela.</p>
             </div>
 
             <!-- Order Summary -->
@@ -428,28 +414,16 @@
                 </div>
             </div>
 
-            <!-- Receipt Identification / Proof Input -->
-            <div class="bg-aero-950/90 border border-amber-400/30 rounded-2xl p-3.5 mb-4">
-                <label for="pix-receipt-note" class="block text-[11px] font-bold uppercase tracking-wider text-amber-300 mb-1.5">
-                    <i class="fa-solid fa-receipt mr-1"></i> Identificação do Comprovante (ID E2E ou Titular) *
-                </label>
-                <input type="text" id="pix-receipt-note" placeholder="Ex: PIX enviado por João Silva / ID E32..." 
-                    class="w-full px-3 py-2 rounded-xl bg-aero-900 border border-blue-400/25 text-white placeholder-blue-300/40 text-xs focus:outline-none focus:border-amber-400">
-                <p class="text-[10px] text-blue-200/60 mt-1.5">
-                    O bilhete ficará <strong>Reservado (Aguardando Confirmação)</strong> até a conferência do pagamento no painel do organizador.
-                </p>
-            </div>
-
             <!-- Action Buttons -->
             <div class="space-y-2.5">
-                <button onclick="submitPaymentProofReservation()" id="confirm-pix-btn" class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-display font-extrabold text-xs sm:text-sm uppercase tracking-wider transition shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    <span>Já Paguei • Enviar para Confirmação</span>
+                <button onclick="completePurchaseIndependently()" id="confirm-pix-btn" class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-slate-950 font-display font-extrabold text-xs sm:text-sm uppercase tracking-wider transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-circle-check text-lg"></i>
+                    <span>Já Fiz o PIX • Confirmar Compra</span>
                 </button>
 
-                <button onclick="sendWhatsAppReceipt()" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600/25 hover:bg-emerald-600/40 border border-emerald-400/35 text-emerald-200 font-semibold text-xs transition flex items-center justify-center gap-2">
+                <button onclick="sendWhatsAppReceipt()" class="w-full py-2.5 px-4 rounded-xl bg-blue-600/25 hover:bg-blue-600/40 border border-blue-400/35 text-sky-200 font-semibold text-xs transition flex items-center justify-center gap-2">
                     <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
-                    <span>Enviar Comprovante Direto no WhatsApp</span>
+                    <span>Enviar Comprovante no WhatsApp</span>
                 </button>
             </div>
         </div>
@@ -466,55 +440,54 @@
                 <div class="w-14 h-14 rounded-2xl bg-aero-red/20 border border-aero-red/40 flex items-center justify-center text-aero-red text-2xl mx-auto mb-3">
                     <i class="fa-solid fa-user-shield"></i>
                 </div>
-                <h3 class="font-display text-xl font-extrabold text-white">Acesso Restrito ao Organizador</h3>
+                <h3 class="font-display text-xl font-extrabold text-white">Acesso Restrito</h3>
                 <p class="text-xs text-blue-200/75 mt-1">
-                    Somente a conta autorizada <span class="text-sky-300 font-mono font-bold">arthurgss007@gmail.com</span> pode visualizar compradores e confirmar pagamentos.
+                    Exclusivo para <span class="text-sky-300 font-mono font-bold">arthurgss007@gmail.com</span>
                 </p>
             </div>
 
             <div class="space-y-3">
                 <button onclick="loginWithAuthorizedGoogle()" class="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-sm transition flex items-center justify-center gap-2.5 shadow-lg">
                     <i class="fa-brands fa-google text-red-600 text-base"></i>
-                    <span>Entrar com Gmail (arthurgss007@gmail.com)</span>
+                    <span>Entrar com Gmail</span>
                 </button>
 
                 <div class="relative flex py-2 items-center">
                     <div class="flex-grow border-t border-blue-400/20"></div>
-                    <span class="flex-shrink mx-3 text-[11px] uppercase text-blue-300/50">ou chave de acesso local</span>
+                    <span class="flex-shrink mx-3 text-[11px] uppercase text-blue-300/50">ou senha</span>
                     <div class="flex-grow border-t border-blue-400/20"></div>
                 </div>
 
                 <form onsubmit="loginWithAdminPin(event)" class="space-y-2.5">
                     <input type="email" id="admin-email-check" value="arthurgss007@gmail.com" readonly
                         class="w-full px-3.5 py-2.5 rounded-xl bg-aero-950/70 border border-blue-400/20 text-sky-300 font-mono text-xs">
-                    <input type="password" id="admin-pin-input" placeholder="Digite sua senha de administrador" required
+                    <input type="password" id="admin-pin-input" placeholder="Senha de acesso" required
                         class="w-full px-3.5 py-2.5 rounded-xl bg-aero-950 border border-blue-400/25 text-white placeholder-blue-300/40 text-sm focus:outline-none focus:border-aero-red">
                     <button type="submit" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider transition">
-                        Desbloquear Painel
+                        Entrar
                     </button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Organizer / Sales Panel Modal (Only accessible after Auth) -->
+    <!-- Organizer / Sales Panel Modal (ONLY Buyers & Phone Numbers) -->
     <div id="admin-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-        <div class="bg-aero-900 border border-blue-400/25 rounded-3xl max-w-3xl w-full p-6 shadow-2xl flex flex-col max-h-[88vh]">
+        <div class="bg-aero-900 border border-blue-400/25 rounded-3xl max-w-2xl w-full p-6 shadow-2xl flex flex-col max-h-[85vh]">
             <div class="flex items-center justify-between pb-4 border-b border-blue-400/15">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full ring-2 ring-aero-red/60 shrink-0 bg-[#07093B]">
                         <svg viewBox="0 0 200 200" class="w-full h-full"><use href="#tkvm-crest-logo"/></svg>
                     </div>
                     <div>
-                        <h3 class="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-                            <span>Painel Privado • TKV<span class="text-aero-red font-serif italic">m</span></span>
-                            <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full">arthurgss007@gmail.com</span>
+                        <h3 class="font-display text-lg sm:text-xl font-bold text-white">
+                            Compradores • TKV<span class="text-aero-red font-serif italic">m</span>
                         </h3>
-                        <p class="text-xs text-blue-200/70">Confirme os PIX recebidos e sincronize com sua planilha.</p>
+                        <p class="text-xs text-sky-300 font-mono">arthurgss007@gmail.com</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button onclick="logoutAdmin()" title="Sair do painel" class="px-3 py-1.5 rounded-lg bg-rose-950/70 hover:bg-aero-red/30 text-rose-300 text-xs font-semibold transition">
+                    <button onclick="logoutAdmin()" class="px-3 py-1.5 rounded-lg bg-rose-950/70 hover:bg-aero-red/30 text-rose-300 text-xs font-semibold transition">
                         Sair
                     </button>
                     <button onclick="closeAdminModal()" class="w-9 h-9 rounded-full bg-blue-950 hover:bg-aero-red/20 flex items-center justify-center text-blue-200 hover:text-white transition">
@@ -523,93 +496,8 @@
                 </div>
             </div>
 
-            <!-- Summary Counters -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
-                <div class="bg-aero-950 border border-blue-400/20 rounded-2xl p-3">
-                    <p class="text-[11px] text-blue-200/70">Confirmado (Caixa)</p>
-                    <p id="admin-revenue" class="font-display text-lg font-extrabold text-emerald-400">R$ 75,00</p>
-                </div>
-                <div class="bg-aero-950 border border-amber-400/30 rounded-2xl p-3">
-                    <p class="text-[11px] text-amber-200/70">Aguardando PIX</p>
-                    <p id="admin-pending-count" class="font-display text-lg font-extrabold text-amber-400">0</p>
-                </div>
-                <div class="bg-aero-950 border border-blue-400/20 rounded-2xl p-3">
-                    <p class="text-[11px] text-blue-200/70">Vendidos</p>
-                    <p id="admin-sold-count" class="font-display text-lg font-extrabold text-aero-red">15 / 100</p>
-                </div>
-                <div class="bg-aero-950 border border-blue-400/20 rounded-2xl p-3">
-                    <p class="text-[11px] text-blue-200/70">Livres</p>
-                    <p id="admin-free-count" class="font-display text-lg font-extrabold text-sky-400">85</p>
-                </div>
-            </div>
-
-            <!-- List of Pending & Sold Tickets -->
-            <div id="sales-list-container" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
-
-            <div class="pt-4 mt-4 border-t border-blue-400/15 flex flex-wrap justify-between items-center gap-2">
-                <div class="flex flex-wrap items-center gap-2">
-                    <button onclick="exportSpreadsheetCSV()" class="text-xs bg-emerald-600/25 hover:bg-emerald-600/40 border border-emerald-400/40 text-emerald-300 font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-file-excel"></i>
-                        <span>Baixar Planilha (.CSV)</span>
-                    </button>
-                    <button onclick="toggleCloudSetupModal()" class="text-xs bg-sky-600/20 hover:bg-sky-600/35 border border-sky-400/35 text-sky-300 font-semibold px-3 py-2 rounded-xl transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-table"></i>
-                        <span>Conectar Planilha & Nuvem</span>
-                    </button>
-                    <button onclick="resetToOriginalSpreadsheet()" class="text-xs text-blue-300/60 hover:text-aero-red px-2 py-1.5 transition flex items-center gap-1">
-                        <i class="fa-solid fa-rotate-left"></i>
-                        <span>Restaurar Planilha Base</span>
-                    </button>
-                </div>
-                <button onclick="closeAdminModal()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition">
-                    Fechar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cloud & Google Sheets Integration Modal -->
-    <div id="cloud-setup-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-sm">
-        <div class="bg-aero-900 border border-sky-400/35 rounded-3xl max-w-xl w-full p-6 shadow-2xl max-h-[88vh] overflow-y-auto">
-            <div class="flex items-center justify-between pb-3 border-b border-blue-400/15 mb-4">
-                <h3 class="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-cloud text-sky-400"></i>
-                    <span>Conexão Google Sheets & Firebase</span>
-                </h3>
-                <button onclick="toggleCloudSetupModal()" class="w-8 h-8 rounded-full bg-blue-950 hover:bg-aero-red/20 flex items-center justify-center text-blue-200 hover:text-white transition">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <div class="space-y-4 text-xs sm:text-sm text-blue-100 leading-relaxed">
-                <!-- Google Sheets Webhook Config -->
-                <div class="bg-aero-950/90 border border-emerald-400/30 rounded-2xl p-4 space-y-2">
-                    <p class="font-bold text-emerald-300 flex items-center gap-1.5">
-                        <i class="fa-solid fa-table"></i>
-                        <span>1. URL do Google Apps Script (Planilha Automática)</span>
-                    </p>
-                    <p class="text-xs text-blue-200/80">
-                        Cole a URL do Web App da sua planilha <strong>4ª RIFA 2026</strong> para que cada venda confirmada preencha automaticamente as colunas <code class="text-sky-300">Nº</code>, <code class="text-sky-300">COMPRADOR</code> e <code class="text-sky-300">CONTATO</code>:
-                    </p>
-                    <input type="url" id="sheets-webhook-input" placeholder="https://script.google.com/macros/s/.../exec" 
-                        class="w-full p-2.5 rounded-xl bg-aero-900 border border-blue-400/25 font-mono text-xs text-emerald-200 focus:outline-none focus:border-emerald-400">
-                    <button onclick="saveSheetsWebhook()" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs transition">
-                        Salvar Link da Planilha
-                    </button>
-                </div>
-
-                <!-- Firebase Config -->
-                <div class="bg-aero-950/90 border border-blue-400/20 rounded-2xl p-4 space-y-2">
-                    <p class="font-bold text-sky-300">2. Configuração Firebase (Login Google + Tempo Real)</p>
-                    <p class="text-xs text-blue-200/80">
-                        Ative <strong>Authentication (Google e Anônimo)</strong> e <strong>Firestore</strong> no Firebase Console e cole o JSON abaixo:
-                    </p>
-                    <textarea id="custom-firebase-json" rows="3" placeholder='{"apiKey": "...", "authDomain": "...", "projectId": "...", "appId": "..."}' class="w-full p-2.5 rounded-xl bg-aero-900 border border-blue-400/25 font-mono text-xs text-sky-200 focus:outline-none focus:border-sky-400"></textarea>
-                    <button onclick="saveCustomCloudConfig()" class="w-full py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition">
-                        Salvar Configuração Firebase
-                    </button>
-                </div>
-            </div>
+            <!-- List of Buyers & Phone Numbers ONLY -->
+            <div id="sales-list-container" class="flex-1 overflow-y-auto space-y-2 pr-1 mt-4"></div>
         </div>
     </div>
 
@@ -617,51 +505,49 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // =========================================================================
-        // CONFIGURAÇÕES DO ADMINISTRADOR E INTEGRAÇÕES (PREENCHA PARA PRODUÇÃO)
+        // CONFIGURAÇÕES DO SISTEMA (PREENCHA PARA SINCRONIZAÇÃO ENTRE CELULARES)
         // =========================================================================
         const AUTHORIZED_ADMIN_EMAIL = "arthurgss007@gmail.com";
-        const ADMIN_FALLBACK_PIN = "TKVm2026"; // Altere para sua senha pessoal de contingência
-        const ORGANIZER_WHATSAPP = "5532984871810"; // Seu WhatsApp para receber comprovantes
+        const ADMIN_FALLBACK_PIN = "TKVm2026";
+        const ORGANIZER_WHATSAPP = "5532984871810";
 
-        // Cole aqui seu firebaseConfig quando for subir no Netlify:
+        // Cole aqui seu firebaseConfig para sincronizar ao vivo em todos os celulares:
         const CUSTOM_CLOUD_CONFIG = null;
 
-        // Cole aqui a URL do Google Apps Script conectada à sua planilha "4ª RIFA 2026":
-        const DEFAULT_SHEETS_WEBHOOK_URL = "";
+        // Cole aqui a URL do Google Apps Script da sua planilha "4ª RIFA 2026":
+        const SHEETS_WEBHOOK_URL = "";
 
         const TICKET_PRICE = 5.00;
         const PIX_KEY = "02329099622";
         const START_NUM = 400;
         const END_NUM = 499;
-        const STORAGE_KEY = "aero_rifa_tkv_tickets_v2";
-        const CLOUD_CFG_STORAGE_KEY = "aero_rifa_tkv_cloud_cfg_v1";
-        const SHEETS_URL_STORAGE_KEY = "aero_rifa_tkv_sheets_url_v1";
+        const STORAGE_KEY = "aero_rifa_tkv_tickets_v3";
         const ADMIN_SESSION_KEY = "aero_rifa_tkv_admin_auth";
 
-        // Dados importados diretamente da planilha "Arthur Gabriel dos Santos Silva.xlsx" (4ª RIFA 2026)
+        // Compradores já confirmados na sua planilha "4ª RIFA 2026"
         const INITIAL_SPREADSHEET_TICKETS = {
-            400: { name: "João Pedro", phone: "(32) 99937-3355", status: "sold", date: "Planilha Base" },
-            401: { name: "Antônio (vô Renato)", phone: "(37) 98811-0970", status: "sold", date: "Planilha Base" },
-            402: { name: "Geralda (vó Renato)", phone: "(37) 98811-0970", status: "sold", date: "Planilha Base" },
-            403: { name: "Geralda (vó Renato)", phone: "(37) 98811-0970", status: "sold", date: "Planilha Base" },
-            404: { name: "Kaik Ferreira", phone: "(32) 99845-2344", status: "sold", date: "Planilha Base" },
-            405: { name: "Renato Dias Campos de Freitas", phone: "(32) 99845-2344", status: "sold", date: "Planilha Base" },
-            406: { name: "Renato Dias Campos de Freitas", phone: "(32) 99845-2344", status: "sold", date: "Planilha Base" },
-            414: { name: "Arthur Gabriel", phone: "(32) 98487-1810", status: "sold", date: "Planilha Base" },
-            431: { name: "Thierry Ruffo", phone: "(32) 98468-0687", status: "sold", date: "Planilha Base" },
-            438: { name: "Gustavo Guedes", phone: "(32) 98512-5057", status: "sold", date: "Planilha Base" },
-            475: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836", status: "sold", date: "Planilha Base" },
-            476: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836", status: "sold", date: "Planilha Base" },
-            477: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836", status: "sold", date: "Planilha Base" },
-            478: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836", status: "sold", date: "Planilha Base" },
-            495: { name: "Daniel dos Santos Almeida", phone: "(32) 98464-1402", status: "sold", date: "Planilha Base" }
+            400: { name: "João Pedro", phone: "(32) 99937-3355" },
+            401: { name: "Antônio (vô Renato)", phone: "(37) 98811-0970" },
+            402: { name: "Geralda (vó Renato)", phone: "(37) 98811-0970" },
+            403: { name: "Geralda (vó Renato)", phone: "(37) 98811-0970" },
+            404: { name: "Kaik Ferreira", phone: "(32) 99845-2344" },
+            405: { name: "Renato Dias Campos de Freitas", phone: "(32) 99845-2344" },
+            406: { name: "Renato Dias Campos de Freitas", phone: "(32) 99845-2344" },
+            414: { name: "Arthur Gabriel", phone: "(32) 98487-1810" },
+            431: { name: "Thierry Ruffo", phone: "(32) 98468-0687" },
+            438: { name: "Gustavo Guedes", phone: "(32) 98512-5057" },
+            475: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836" },
+            476: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836" },
+            477: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836" },
+            478: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836" },
+            495: { name: "Daniel dos Santos Almeida", phone: "(32) 98464-1402" }
         };
 
         // App State
-        let ticketsMap = {}; // { [num]: { name, phone, status: 'pending' | 'sold', receiptNote, date } }
+        let soldTickets = {};
         let selectedNumbers = new Set();
         let currentFilter = 'all';
         let pendingOrder = null;
@@ -677,11 +563,9 @@
         function updateAdminBadgeUI() {
             const icon = document.getElementById('admin-lock-icon');
             if (!icon) return;
-            if (isAdminAuthenticated) {
-                icon.className = "fa-solid fa-unlock text-emerald-400";
-            } else {
-                icon.className = "fa-solid fa-lock text-aero-red";
-            }
+            icon.className = isAdminAuthenticated 
+                ? "fa-solid fa-unlock text-emerald-400" 
+                : "fa-solid fa-lock text-aero-red";
         }
 
         function updateSyncStatus(isOnline) {
@@ -691,10 +575,10 @@
 
             if (isOnline) {
                 dot.className = "w-2 h-2 rounded-full bg-emerald-400 animate-ping";
-                text.textContent = "Nuvem Ao Vivo";
+                text.textContent = "Ao Vivo";
             } else {
                 dot.className = "w-2 h-2 rounded-full bg-aero-red";
-                text.textContent = "Modo Local";
+                text.textContent = "Local";
             }
         }
 
@@ -705,41 +589,25 @@
             if (CUSTOM_CLOUD_CONFIG && CUSTOM_CLOUD_CONFIG.projectId) {
                 return CUSTOM_CLOUD_CONFIG;
             }
-            const savedCfg = localStorage.getItem(CLOUD_CFG_STORAGE_KEY);
-            if (savedCfg) {
-                try {
-                    const parsed = JSON.parse(savedCfg);
-                    if (parsed && parsed.projectId) return parsed;
-                } catch (e) {}
-            }
             return null;
         }
 
-        function getSheetsWebhookUrl() {
-            return localStorage.getItem(SHEETS_URL_STORAGE_KEY) || DEFAULT_SHEETS_WEBHOOK_URL;
-        }
-
-        // Send confirmed sale to Google Sheets via Apps Script Webhook
         async function syncTicketToSpreadsheet(num, record) {
-            const webhookUrl = getSheetsWebhookUrl();
-            if (!webhookUrl) return false;
-
+            if (!SHEETS_WEBHOOK_URL) return;
             try {
-                await fetch(webhookUrl, {
+                await fetch(SHEETS_WEBHOOK_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        action: record ? 'upsert' : 'clear',
+                        action: 'upsert',
                         numero: Number(num),
-                        comprador: record ? record.name : '',
-                        contato: record ? record.phone : ''
+                        comprador: record.name,
+                        contato: record.phone
                     })
                 });
-                return true;
             } catch (err) {
-                console.warn("Erro ao enviar para Google Sheets:", err);
-                return false;
+                console.warn("Erro ao sincronizar planilha:", err);
             }
         }
 
@@ -748,13 +616,13 @@
             const cached = localStorage.getItem(STORAGE_KEY);
             if (cached) {
                 try {
-                    ticketsMap = JSON.parse(cached);
+                    soldTickets = JSON.parse(cached);
                 } catch (e) {
-                    ticketsMap = { ...INITIAL_SPREADSHEET_TICKETS };
+                    soldTickets = { ...INITIAL_SPREADSHEET_TICKETS };
                 }
             } else {
-                ticketsMap = { ...INITIAL_SPREADSHEET_TICKETS };
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
+                soldTickets = { ...INITIAL_SPREADSHEET_TICKETS };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(soldTickets));
             }
             renderAll();
 
@@ -793,37 +661,31 @@
                         snapshot.forEach((docSnap) => {
                             const num = parseInt(docSnap.id, 10);
                             if (!isNaN(num)) {
-                                const data = docSnap.data();
-                                remoteMap[num] = {
-                                    ...data,
-                                    status: data.status || 'sold'
-                                };
+                                remoteMap[num] = docSnap.data();
                             }
                         });
 
-                        ticketsMap = remoteMap;
-                        localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
+                        soldTickets = remoteMap;
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(soldTickets));
 
                         let conflict = false;
                         selectedNumbers.forEach(n => {
-                            if (ticketsMap[n]) {
+                            if (soldTickets[n]) {
                                 selectedNumbers.delete(n);
                                 conflict = true;
                             }
                         });
 
                         if (conflict) {
-                            showToast("Um número que você selecionou acabou de ser reservado por outra pessoa!", "warning");
+                            showToast("Um número selecionado acabou de ser comprado por outra pessoa!", "warning");
                         }
 
                         renderAll();
-                    }, (err) => {
-                        console.warn("Erro na escuta em tempo real:", err);
+                    }, () => {
                         updateSyncStatus(false);
                     });
                 }
             } catch (err) {
-                console.warn("Falha ao conectar na nuvem:", err);
                 updateSyncStatus(false);
             }
         }
@@ -843,14 +705,11 @@
 
         function renderStats() {
             const totalCount = END_NUM - START_NUM + 1;
-            const entries = Object.values(ticketsMap);
-            const soldCount = entries.filter(t => t.status === 'sold').length;
-            const pendingCount = entries.filter(t => t.status === 'pending').length;
-            const availableCount = totalCount - soldCount - pendingCount;
+            const soldCount = Object.keys(soldTickets).length;
+            const availableCount = totalCount - soldCount;
             const percent = Math.round((soldCount / totalCount) * 100);
 
             document.getElementById('stat-available').textContent = availableCount;
-            document.getElementById('stat-pending').textContent = pendingCount;
             document.getElementById('stat-sold').textContent = soldCount;
             document.getElementById('progress-percent').textContent = `${percent}% vendidos`;
             document.getElementById('progress-bar').style.width = `${percent}%`;
@@ -861,12 +720,10 @@
             grid.innerHTML = '';
 
             for (let num = START_NUM; num <= END_NUM; num++) {
-                const ticket = ticketsMap[num];
-                const isSold = ticket && ticket.status === 'sold';
-                const isPending = ticket && ticket.status === 'pending';
+                const isSold = Boolean(soldTickets[num]);
                 const isSelected = selectedNumbers.has(num);
 
-                if (currentFilter === 'available' && (isSold || isPending)) continue;
+                if (currentFilter === 'available' && isSold) continue;
                 if (currentFilter === 'sold' && !isSold) continue;
 
                 const btn = document.createElement('button');
@@ -874,11 +731,9 @@
                 btn.className = `num-tile h-12 sm:h-13 rounded-xl border font-display text-sm sm:text-base font-bold flex flex-col items-center justify-center relative overflow-hidden ${
                     isSold 
                         ? 'num-sold' 
-                        : isPending
-                            ? 'num-pending'
-                            : isSelected 
-                                ? 'num-selected' 
-                                : 'num-available bg-aero-800/85 border-blue-400/25 text-white'
+                        : isSelected 
+                            ? 'num-selected' 
+                            : 'num-available bg-aero-800/85 border-blue-400/25 text-white'
                 }`;
 
                 if (isSold) {
@@ -887,13 +742,6 @@
                     btn.innerHTML = `
                         <span class="line-through opacity-50">${num}</span>
                         <span class="text-[9px] uppercase tracking-tighter font-sans font-extrabold text-aero-red -mt-0.5">Vendido</span>
-                    `;
-                } else if (isPending) {
-                    btn.disabled = true;
-                    btn.title = `Número ${num} - Aguardando confirmação do PIX`;
-                    btn.innerHTML = `
-                        <span class="opacity-80">${num}</span>
-                        <span class="text-[8px] uppercase tracking-tighter font-sans font-extrabold text-amber-400 -mt-0.5">Aguard.</span>
                     `;
                 } else {
                     btn.onclick = () => toggleNumber(num);
@@ -938,7 +786,7 @@
         }
 
         // =========================================================================
-        // CONTROLE DE ACESSO PRIVADO (SOMENTE arthurgss007@gmail.com)
+        // PAINEL ADMIN (SOMENTE arthurgss007@gmail.com | APENAS COMPRADORES E CLLR)
         // =========================================================================
         window.openAdminAccess = function() {
             if (isAdminAuthenticated) {
@@ -967,7 +815,7 @@
 
         window.loginWithAuthorizedGoogle = async function() {
             if (!auth) {
-                showToast("Firebase não configurado. Use a senha local abaixo ou configure o Firebase.", "warning");
+                showToast("Use a senha de acesso abaixo ou configure o Firebase.", "warning");
                 return;
             }
             try {
@@ -982,14 +830,12 @@
                     updateAdminBadgeUI();
                     closeAdminLoginModal();
                     openAdminAccess();
-                    showToast(`Bem-vindo, Arthur (${userEmail})!`, "success");
                 } else {
                     await signInAnonymously(auth);
-                    showToast(`Acesso negado para ${userEmail}. Apenas ${AUTHORIZED_ADMIN_EMAIL} tem permissão.`, "warning");
+                    showToast(`Acesso negado para ${userEmail}.`, "warning");
                 }
             } catch (err) {
-                console.warn(err);
-                showToast("Não foi possível autenticar via popup Google. Use a senha de administrador.", "warning");
+                showToast("Não foi possível autenticar via Google. Use a senha.", "warning");
             }
         };
 
@@ -1005,9 +851,8 @@
                 updateAdminBadgeUI();
                 closeAdminLoginModal();
                 openAdminAccess();
-                showToast("Painel desbloqueado para arthurgss007@gmail.com!", "success");
             } else {
-                showToast("Credenciais incorretas. Acesso restrito a arthurgss007@gmail.com.", "warning");
+                showToast("Senha incorreta.", "warning");
             }
         };
 
@@ -1016,120 +861,96 @@
             sessionStorage.removeItem(ADMIN_SESSION_KEY);
             updateAdminBadgeUI();
             closeAdminModal();
-            showToast("Sessão administrativa encerrada.", "info");
         };
 
         function renderAdminList() {
             if (!isAdminAuthenticated) return;
 
             const container = document.getElementById('sales-list-container');
-            const entries = Object.entries(ticketsMap).sort((a, b) => {
-                // Show pending confirmations first, then sorted by ticket number
-                const statusA = a[1].status === 'pending' ? 0 : 1;
-                const statusB = b[1].status === 'pending' ? 0 : 1;
-                if (statusA !== statusB) return statusA - statusB;
-                return Number(a[0]) - Number(b[0]);
-            });
-
-            const soldCount = entries.filter(([, info]) => info.status === 'sold').length;
-            const pendingCount = entries.filter(([, info]) => info.status === 'pending').length;
-
-            document.getElementById('admin-revenue').textContent = formatBRL(soldCount * TICKET_PRICE);
-            document.getElementById('admin-pending-count').textContent = `${pendingCount}`;
-            document.getElementById('admin-sold-count').textContent = `${soldCount} / 100`;
-            document.getElementById('admin-free-count').textContent = `${100 - soldCount - pendingCount}`;
+            const entries = Object.entries(soldTickets).sort((a, b) => Number(a[0]) - Number(b[0]));
 
             if (entries.length === 0) {
-                container.innerHTML = `<p class="text-center text-sm text-blue-200/60 py-8">Nenhum bilhete reservado ou vendido ainda.</p>`;
+                container.innerHTML = `<p class="text-center text-sm text-blue-200/60 py-8">Nenhum bilhete vendido ainda.</p>`;
                 return;
             }
 
-            container.innerHTML = entries.map(([num, info]) => {
-                const isPending = info.status === 'pending';
-                return `
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-aero-950/90 border ${isPending ? 'border-amber-400/50' : 'border-blue-400/20'} rounded-xl px-4 py-3">
+            container.innerHTML = entries.map(([num, info]) => `
+                <div class="flex items-center justify-between bg-aero-950/90 border border-blue-400/20 rounded-xl px-4 py-3">
                     <div class="flex items-center gap-3">
-                        <span class="w-11 h-10 rounded-lg ${isPending ? 'bg-amber-500/20 border-amber-400/50 text-amber-300' : 'bg-aero-red/20 border-aero-red/40 text-aero-red'} border font-display font-extrabold text-sm flex items-center justify-center shrink-0">
+                        <span class="w-11 h-9 rounded-lg bg-aero-red/20 border border-aero-red/40 text-aero-red font-display font-extrabold text-sm flex items-center justify-center shrink-0">
                             ${num}
                         </span>
-                        <div>
-                            <p class="text-sm font-bold text-white">${escapeHtml(info.name)}</p>
-                            <p class="text-xs text-blue-200/75">
-                                <i class="fa-brands fa-whatsapp text-emerald-400 mr-1"></i>${escapeHtml(info.phone)}
-                                <span class="text-blue-300/40 mx-1">•</span>
-                                <span class="text-[11px] text-blue-300/60">${escapeHtml(info.date || '')}</span>
-                            </p>
-                            ${info.receiptNote ? `<p class="text-[11px] text-amber-300/90 mt-0.5"><i class="fa-solid fa-receipt mr-1"></i>Comprovante: ${escapeHtml(info.receiptNote)}</p>` : ''}
-                        </div>
+                        <span class="text-sm font-bold text-white">${escapeHtml(info.name)}</span>
                     </div>
-                    <div class="flex items-center gap-2 self-end sm:self-center">
-                        ${isPending ? `
-                            <button onclick="window.approvePayment(${num})" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs transition flex items-center gap-1 shadow">
-                                <i class="fa-solid fa-check"></i>
-                                <span>Confirmar PIX</span>
-                            </button>
-                        ` : `
-                            <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-                                Pago / Planilha
-                            </span>
-                        `}
-                        <button onclick="window.releaseTicket(${num})" title="Cancelar reserva e liberar número" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-aero-red/25 text-blue-200/60 hover:text-aero-red flex items-center justify-center transition">
-                            <i class="fa-solid fa-trash-can text-xs"></i>
-                        </button>
-                    </div>
+                    <span class="text-xs sm:text-sm font-mono text-emerald-300">
+                        <i class="fa-brands fa-whatsapp text-emerald-400 mr-1.5"></i>${escapeHtml(info.phone)}
+                    </span>
                 </div>
-            `}).join('');
+            `).join('');
         }
 
-        // Approve payment -> Marks as SOLD and pushes to Google Sheets
-        window.approvePayment = async function(num) {
-            if (!isAdminAuthenticated || !ticketsMap[num]) return;
+        // =========================================================================
+        // COMPRA INDEPENDENTE COM ATUALIZAÇÃO INSTANTÂNEA
+        // =========================================================================
+        window.completePurchaseIndependently = async function() {
+            if (!pendingOrder) return;
 
-            const updatedRecord = {
-                ...ticketsMap[num],
-                status: 'sold',
-                confirmedAt: new Date().toLocaleString('pt-BR')
+            const alreadyTaken = pendingOrder.numbers.filter(num => Boolean(soldTickets[num]));
+            if (alreadyTaken.length > 0) {
+                showToast(`Os números ${alreadyTaken.join(', ')} já foram comprados! Escolha outros.`, "warning");
+                alreadyTaken.forEach(n => selectedNumbers.delete(n));
+                closePixModal();
+                renderAll();
+                return;
+            }
+
+            const btn = document.getElementById('confirm-pix-btn');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Atualizando cartela...</span>`;
+
+            const ticketRecord = {
+                name: pendingOrder.name,
+                phone: pendingOrder.phone,
+                date: new Date().toLocaleString('pt-BR')
             };
 
-            ticketsMap[num] = updatedRecord;
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
+            pendingOrder.numbers.forEach(num => {
+                soldTickets[num] = ticketRecord;
+                selectedNumbers.delete(num);
+            });
+
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(soldTickets));
 
             if (useFirestore && db && auth?.currentUser) {
                 try {
-                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tickets', String(num)), updatedRecord);
-                } catch (e) {
-                    console.warn(e);
+                    const promises = pendingOrder.numbers.map(num => {
+                        const ticketRef = doc(db, 'artifacts', appId, 'public', 'data', 'tickets', String(num));
+                        return setDoc(ticketRef, ticketRecord);
+                    });
+                    await Promise.all(promises);
+                } catch (err) {
+                    console.error("Erro ao sincronizar nuvem:", err);
                 }
             }
 
-            const syncedSheet = await syncTicketToSpreadsheet(num, updatedRecord);
-            renderAll();
-            showToast(
-                syncedSheet 
-                    ? `Pagamento do nº ${num} confirmado e enviado para a planilha!` 
-                    : `Pagamento do nº ${num} confirmado como VENDIDO!`,
-                "success"
-            );
-        };
-
-        window.releaseTicket = async function(num) {
-            if (!isAdminAuthenticated) return;
-            delete ticketsMap[num];
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
-            if (useFirestore && db && auth?.currentUser) {
-                try {
-                    await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tickets', String(num)));
-                } catch (e) {
-                    console.warn(e);
-                }
+            for (const num of pendingOrder.numbers) {
+                await syncTicketToSpreadsheet(num, ticketRecord);
             }
-            await syncTicketToSpreadsheet(num, null);
+
+            const boughtNums = pendingOrder.numbers.join(', ');
+            pendingOrder = null;
+
+            btn.disabled = false;
+            btn.innerHTML = `<i class="fa-solid fa-circle-check text-lg"></i><span>Já Fiz o PIX • Confirmar Compra</span>`;
+
+            document.getElementById('checkout-form').reset();
+            closePixModal();
             renderAll();
-            showToast(`Número ${num} liberado novamente!`, "info");
+            showToast(`Compra confirmada! Números ${boughtNums} garantidos e atualizados no site.`, "success");
         };
 
         window.toggleNumber = function(num) {
-            if (ticketsMap[num]) return;
+            if (soldTickets[num]) return;
             if (selectedNumbers.has(num)) {
                 selectedNumbers.delete(num);
             } else {
@@ -1142,7 +963,7 @@
         window.selectRandomLucky = function() {
             const available = [];
             for (let n = START_NUM; n <= END_NUM; n++) {
-                if (!ticketsMap[n] && !selectedNumbers.has(n)) {
+                if (!soldTickets[n] && !selectedNumbers.has(n)) {
                     available.push(n);
                 }
             }
@@ -1167,11 +988,9 @@
             currentFilter = filter;
             ['all', 'available', 'sold'].forEach(f => {
                 const btn = document.getElementById(`filter-${f}`);
-                if (f === filter) {
-                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white transition";
-                } else {
-                    btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-blue-200/70 hover:text-white transition";
-                }
+                btn.className = f === filter
+                    ? "px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white transition"
+                    : "px-3 py-1.5 rounded-lg text-xs font-bold text-blue-200/70 hover:text-white transition";
             });
             renderGrid();
         };
@@ -1217,7 +1036,6 @@
             document.getElementById('modal-buyer-name').textContent = pendingOrder.name;
             document.getElementById('modal-numbers').textContent = pendingOrder.numbers.join(', ');
             document.getElementById('modal-total-amount').textContent = formatBRL(pendingOrder.total);
-            document.getElementById('pix-receipt-note').value = '';
 
             const modal = document.getElementById('pix-modal');
             modal.classList.remove('hidden');
@@ -1237,156 +1055,14 @@
 
         window.sendWhatsAppReceipt = function() {
             if (!pendingOrder) return;
-            const receiptNote = document.getElementById('pix-receipt-note').value.trim();
             const msg = encodeURIComponent(
-                `Olá Arthur! Acabei de fazer o PIX da *AERO RIFA TKVm* 🏆\n\n` +
+                `Olá! Acabei de comprar número(s) na *AERO RIFA TKVm* 🏆\n\n` +
                 `👤 *Nome:* ${pendingOrder.name}\n` +
                 `🎟️ *Número(s):* ${pendingOrder.numbers.join(', ')}\n` +
-                `💰 *Valor PIX:* ${formatBRL(pendingOrder.total)}\n` +
-                (receiptNote ? `🧾 *Comprovante:* ${receiptNote}\n\n` : `\n`) +
-                `Segue o comprovante em anexo para confirmar meu bilhete!`
+                `💰 *Valor PIX:* ${formatBRL(pendingOrder.total)}\n\n` +
+                `Segue o comprovante do PIX!`
             );
             window.open(`https://api.whatsapp.com/send?phone=${ORGANIZER_WHATSAPP}&text=${msg}`, '_blank');
-        };
-
-        // Places ticket in PENDING status until organizer confirms PIX payment
-        window.submitPaymentProofReservation = async function() {
-            if (!pendingOrder) return;
-
-            const receiptNote = document.getElementById('pix-receipt-note').value.trim();
-            if (receiptNote.length < 3) {
-                showToast("Informe o nome do pagador ou ID do comprovante PIX antes de enviar.", "warning");
-                document.getElementById('pix-receipt-note').focus();
-                return;
-            }
-
-            const alreadyTaken = pendingOrder.numbers.filter(num => Boolean(ticketsMap[num]));
-            if (alreadyTaken.length > 0) {
-                showToast(`Os números ${alreadyTaken.join(', ')} já foram reservados! Escolha outros.`, "warning");
-                alreadyTaken.forEach(n => selectedNumbers.delete(n));
-                closePixModal();
-                renderAll();
-                return;
-            }
-
-            const btn = document.getElementById('confirm-pix-btn');
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Registrando reserva...</span>`;
-
-            const timestamp = new Date().toLocaleString('pt-BR');
-            const ticketRecord = {
-                name: pendingOrder.name,
-                phone: pendingOrder.phone,
-                status: 'pending',
-                receiptNote: receiptNote,
-                date: timestamp,
-                buyerUid: auth?.currentUser?.uid || 'local'
-            };
-
-            pendingOrder.numbers.forEach(num => {
-                ticketsMap[num] = ticketRecord;
-                selectedNumbers.delete(num);
-            });
-
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
-
-            if (useFirestore && db && auth?.currentUser) {
-                try {
-                    const promises = pendingOrder.numbers.map(num => {
-                        const ticketRef = doc(db, 'artifacts', appId, 'public', 'data', 'tickets', String(num));
-                        return setDoc(ticketRef, ticketRecord);
-                    });
-                    await Promise.all(promises);
-                } catch (err) {
-                    console.error("Erro ao salvar na nuvem:", err);
-                }
-            }
-
-            const reservedNums = pendingOrder.numbers.join(', ');
-            pendingOrder = null;
-
-            btn.disabled = false;
-            btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i><span>Já Paguei • Enviar para Confirmação</span>`;
-
-            document.getElementById('checkout-form').reset();
-            closePixModal();
-            renderAll();
-            showToast(`Reserva registrada (${reservedNums})! Assim que o pagamento for conferido, aparecerá como Vendido.`, "success");
-        };
-
-        // Export exact layout of "Arthur Gabriel dos Santos Silva.xlsx"
-        window.exportSpreadsheetCSV = function() {
-            if (!isAdminAuthenticated) return;
-            const rows = [
-                ["4ª RIFA 2026", "", ""],
-                ["Nº", "COMPRADOR", "CONTATO"]
-            ];
-
-            for (let num = START_NUM; num <= END_NUM; num++) {
-                const info = ticketsMap[num];
-                if (info && info.status === 'sold') {
-                    rows.push([num, info.name, info.phone]);
-                } else {
-                    rows.push([num, "", ""]);
-                }
-            }
-
-            const csvContent = "\uFEFF" + rows.map(r => r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
-            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "Arthur_Gabriel_dos_Santos_Silva_4_RIFA_2026.csv";
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast("Planilha baixada no formato da 4ª RIFA 2026!", "success");
-        };
-
-        window.toggleCloudSetupModal = function() {
-            const modal = document.getElementById('cloud-setup-modal');
-            if (modal.classList.contains('hidden')) {
-                const savedCfg = localStorage.getItem(CLOUD_CFG_STORAGE_KEY);
-                if (savedCfg) document.getElementById('custom-firebase-json').value = savedCfg;
-                const savedSheets = localStorage.getItem(SHEETS_URL_STORAGE_KEY);
-                if (savedSheets) document.getElementById('sheets-webhook-input').value = savedSheets;
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            } else {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        };
-
-        window.saveSheetsWebhook = function() {
-            const url = document.getElementById('sheets-webhook-input').value.trim();
-            localStorage.setItem(SHEETS_URL_STORAGE_KEY, url);
-            showToast("Link da planilha salvo com sucesso!", "success");
-        };
-
-        window.saveCustomCloudConfig = async function() {
-            const raw = document.getElementById('custom-firebase-json').value.trim();
-            try {
-                const parsed = JSON.parse(raw);
-                if (!parsed.projectId || !parsed.apiKey) {
-                    showToast("JSON inválido: faltam projectId ou apiKey.", "warning");
-                    return;
-                }
-                localStorage.setItem(CLOUD_CFG_STORAGE_KEY, JSON.stringify(parsed));
-                toggleCloudSetupModal();
-                showToast("Configuração salva! Conectando na nuvem...", "success");
-                await initDataLayer();
-            } catch (e) {
-                showToast("Cole um JSON válido das configurações do seu projeto.", "warning");
-            }
-        };
-
-        window.resetToOriginalSpreadsheet = function() {
-            if (!isAdminAuthenticated) return;
-            ticketsMap = { ...INITIAL_SPREADSHEET_TICKETS };
-            selectedNumbers.clear();
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
-            renderAll();
-            showToast("Cartela restaurada com os 15 bilhetes da sua planilha.", "info");
         };
 
         function showToast(message, type = 'success') {
@@ -1414,7 +1090,7 @@
             setTimeout(() => {
                 toast.classList.add('opacity-0', '-translate-y-2');
                 setTimeout(() => toast.remove(), 300);
-            }, 4500);
+            }, 4000);
         }
 
         function escapeHtml(str) {
