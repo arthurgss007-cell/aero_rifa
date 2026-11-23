@@ -62,7 +62,6 @@
             overflow-x: hidden;
         }
 
-        /* Subtle aerospace grid background */
         .aero-grid-bg {
             background-size: 40px 40px;
             background-image: 
@@ -70,23 +69,11 @@
                 linear-gradient(to bottom, rgba(239, 35, 60, 0.03) 1px, transparent 1px);
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #081433;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #18357A;
-            border-radius: 9999px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #EF233C;
-        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #081433; }
+        ::-webkit-scrollbar-thumb { background: #18357A; border-radius: 9999px; }
+        ::-webkit-scrollbar-thumb:hover { background: #EF233C; }
 
-        /* Number Tile Effects */
         .num-tile {
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             user-select: none;
@@ -105,6 +92,12 @@
             transform: scale(1.04);
             font-weight: 800;
         }
+        .num-pending {
+            background: rgba(120, 53, 15, 0.45) !important;
+            border-color: rgba(251, 191, 36, 0.55) !important;
+            color: rgba(253, 230, 138, 0.85) !important;
+            cursor: not-allowed;
+        }
         .num-sold {
             background: rgba(5, 11, 28, 0.8) !important;
             border-color: rgba(239, 35, 60, 0.3) !important;
@@ -120,9 +113,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" class="hidden">
         <defs>
             <g id="tkvm-crest-logo">
-                <!-- Deep Navy Circular Background -->
                 <circle cx="100" cy="100" r="96" fill="#07093B" stroke="#1E3A8A" stroke-width="4"/>
-                <!-- 6 Golden Five-Pointed Stars -->
                 <g fill="#F5B818">
                     <polygon points="34,64 36.8,71 44.3,71.5 38.5,76.3 40.4,83.6 34,79.5 27.6,83.6 29.5,76.3 23.7,71.5 31.2,71"/>
                     <polygon points="56,64 58.8,71 66.3,71.5 60.5,76.3 62.4,83.6 56,79.5 49.6,83.6 51.5,76.3 45.7,71.5 53.2,71"/>
@@ -130,12 +121,9 @@
                     <polygon points="100,64 102.8,71 110.3,71.5 104.5,76.3 106.4,83.6 100,79.5 93.6,83.6 95.5,76.3 89.7,71.5 97.2,71"/>
                     <polygon points="122,64 124.8,71 132.3,71.5 126.5,76.3 128.4,83.6 122,79.5 115.6,83.6 117.5,76.3 111.7,71.5 119.2,71"/>
                     <polygon points="144,64 146.8,71 154.3,71.5 148.5,76.3 150.4,83.6 144,79.5 137.6,83.6 139.5,76.3 133.7,71.5 141.2,71"/>
-                    <!-- Golden Flying Eagle Silhouette (Upper Right) -->
                     <path d="M161,48 C155,41 147,38 141,40 C146,43 150,47 152,51 C146,50 140,52 138,55 C144,55 151,55 155,57 C153,62 150,66 147,68 C154,66 159,62 163,57 C168,59 175,58 179,55 C173,54 168,52 166,49 C170,43 173,36 171,30 C167,36 164,42 161,48 Z"/>
                 </g>
-                <!-- Bold White Italic TKV -->
                 <text x="20" y="133" fill="#FFFFFF" font-family="'Space Grotesk', 'Arial Black', Impact, sans-serif" font-weight="900" font-style="italic" font-size="54" letter-spacing="-2">TKV</text>
-                <!-- Red Cursive/Italic Lowercase m -->
                 <text x="128" y="145" fill="#DC2626" font-family="Georgia, 'Times New Roman', serif" font-weight="900" font-style="italic" font-size="54">m</text>
             </g>
         </defs>
@@ -165,9 +153,9 @@
                     <span id="sync-dot" class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
                     <span id="sync-text">Sincronizando...</span>
                 </div>
-                <button onclick="toggleAdminModal()" class="flex items-center gap-2 text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-xl bg-blue-900/50 hover:bg-blue-800/70 border border-blue-400/25 text-white transition">
-                    <i class="fa-solid fa-list-check text-aero-red"></i>
-                    <span>Painel de Vendas</span>
+                <button onclick="openAdminAccess()" class="flex items-center gap-2 text-xs sm:text-sm font-semibold px-3.5 py-2 rounded-xl bg-blue-900/50 hover:bg-blue-800/70 border border-blue-400/25 text-white transition">
+                    <i id="admin-lock-icon" class="fa-solid fa-lock text-aero-red"></i>
+                    <span>Painel Admin</span>
                 </button>
             </div>
         </div>
@@ -176,19 +164,16 @@
     <!-- Hero Section -->
     <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-10">
         <section class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-aero-900 via-[#0C1D47] to-aero-950 border border-blue-400/20 p-6 sm:p-10 mb-8 shadow-2xl">
-            <!-- Decorative Glow -->
             <div class="absolute -top-24 -right-24 w-80 h-80 bg-aero-red/25 rounded-full blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-blue-600/25 rounded-full blur-3xl pointer-events-none"></div>
 
             <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <!-- Left Copy -->
                 <div class="lg:col-span-7 text-center lg:text-left">
                     <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/15 border border-blue-400/30 text-sky-300 text-xs font-bold uppercase tracking-widest mb-4">
                         <i class="fa-solid fa-star text-amber-400"></i>
                         <span>TKVm • Campanha de Decolagem</span>
                     </div>
 
-                    <!-- Centerpiece TKVm Circular Crest + Title -->
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-5 mb-4">
                         <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full shadow-2xl shadow-blue-950/90 ring-4 ring-aero-red/70 shrink-0 bg-[#07093B]">
                             <svg viewBox="0 0 200 200" class="w-full h-full"><use href="#tkvm-crest-logo"/></svg>
@@ -202,19 +187,22 @@
                         POR <span class="text-white bg-gradient-to-r from-aero-crimson to-aero-red px-3 py-0.5 rounded-lg shadow-md shadow-aero-red/30">R$ 5,00</span> VOCÊ PODE NOS AJUDAR A VOAR MAIS ALTO!
                     </p>
 
-                    <!-- Quick Stats Bar -->
-                    <div class="grid grid-cols-3 gap-3 max-w-md mx-auto lg:mx-0">
-                        <div class="bg-aero-950/80 border border-blue-400/20 rounded-2xl p-3 text-center">
-                            <p class="text-[11px] uppercase tracking-wider text-blue-200/70">Cota</p>
-                            <p class="font-display text-lg sm:text-xl font-extrabold text-white">R$ 5,00</p>
+                    <div class="grid grid-cols-4 gap-2 sm:gap-3 max-w-lg mx-auto lg:mx-0">
+                        <div class="bg-aero-950/80 border border-blue-400/20 rounded-2xl p-2.5 sm:p-3 text-center">
+                            <p class="text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200/70">Cota</p>
+                            <p class="font-display text-base sm:text-xl font-extrabold text-white">R$ 5</p>
                         </div>
-                        <div class="bg-aero-950/80 border border-blue-400/20 rounded-2xl p-3 text-center">
-                            <p class="text-[11px] uppercase tracking-wider text-blue-200/70">Disponíveis</p>
-                            <p id="stat-available" class="font-display text-lg sm:text-xl font-extrabold text-sky-400">88</p>
+                        <div class="bg-aero-950/80 border border-blue-400/20 rounded-2xl p-2.5 sm:p-3 text-center">
+                            <p class="text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200/70">Livres</p>
+                            <p id="stat-available" class="font-display text-base sm:text-xl font-extrabold text-sky-400">85</p>
                         </div>
-                        <div class="bg-aero-950/80 border border-aero-red/30 rounded-2xl p-3 text-center">
-                            <p class="text-[11px] uppercase tracking-wider text-blue-200/70">Vendidos</p>
-                            <p id="stat-sold" class="font-display text-lg sm:text-xl font-extrabold text-aero-red">12</p>
+                        <div class="bg-aero-950/80 border border-amber-400/30 rounded-2xl p-2.5 sm:p-3 text-center">
+                            <p class="text-[10px] sm:text-[11px] uppercase tracking-wider text-amber-200/70">Reservados</p>
+                            <p id="stat-pending" class="font-display text-base sm:text-xl font-extrabold text-amber-400">0</p>
+                        </div>
+                        <div class="bg-aero-950/80 border border-aero-red/30 rounded-2xl p-2.5 sm:p-3 text-center">
+                            <p class="text-[10px] sm:text-[11px] uppercase tracking-wider text-blue-200/70">Vendidos</p>
+                            <p id="stat-sold" class="font-display text-base sm:text-xl font-extrabold text-aero-red">15</p>
                         </div>
                     </div>
                 </div>
@@ -250,12 +238,12 @@
                 <div class="flex justify-between items-center text-xs font-semibold mb-2">
                     <span class="text-blue-100 flex items-center gap-2">
                         <svg viewBox="0 0 200 200" class="w-4 h-4 rounded-full inline-block"><use href="#tkvm-crest-logo"/></svg>
-                        <span>Progresso da Rifa TKVm (400 a 499)</span>
+                        <span>Progresso Confirmado da Rifa TKVm (400 a 499)</span>
                     </span>
-                    <span id="progress-percent" class="text-sky-300 font-bold">12% vendidos</span>
+                    <span id="progress-percent" class="text-sky-300 font-bold">15% vendidos</span>
                 </div>
                 <div class="w-full h-3 rounded-full bg-aero-950 border border-blue-400/20 overflow-hidden p-0.5">
-                    <div id="progress-bar" class="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-aero-red transition-all duration-500" style="width: 12%"></div>
+                    <div id="progress-bar" class="h-full rounded-full bg-gradient-to-r from-blue-500 via-indigo-500 to-aero-red transition-all duration-500" style="width: 15%"></div>
                 </div>
             </div>
         </section>
@@ -283,31 +271,33 @@
                 </div>
 
                 <!-- Legend -->
-                <div class="flex flex-wrap items-center gap-4 text-xs mb-5 pb-4 border-b border-blue-400/15">
-                    <div class="flex items-center gap-2">
-                        <span class="w-4 h-4 rounded-md bg-aero-800 border border-blue-400/30 inline-block"></span>
+                <div class="flex flex-wrap items-center gap-3 sm:gap-4 text-xs mb-5 pb-4 border-b border-blue-400/15">
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3.5 h-3.5 rounded-md bg-aero-800 border border-blue-400/30 inline-block"></span>
                         <span class="text-blue-100">Disponível</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="w-4 h-4 rounded-md bg-aero-red border border-rose-300 inline-block shadow shadow-aero-red/50"></span>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3.5 h-3.5 rounded-md bg-aero-red border border-rose-300 inline-block shadow shadow-aero-red/50"></span>
                         <span class="text-white font-semibold">Selecionado</span>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="w-4 h-4 rounded-md bg-aero-950 border border-aero-red/35 inline-block relative overflow-hidden">
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3.5 h-3.5 rounded-md bg-amber-900/60 border border-amber-400/60 inline-block"></span>
+                        <span class="text-amber-300">Aguardando PIX</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                        <span class="w-3.5 h-3.5 rounded-md bg-aero-950 border border-aero-red/35 inline-block relative overflow-hidden">
                             <span class="block w-full h-0.5 bg-aero-red/70 rotate-45 translate-y-1.5"></span>
                         </span>
                         <span class="text-blue-200/60">Vendido</span>
                     </div>
                     <button onclick="selectRandomLucky()" class="ml-auto text-xs font-bold text-white hover:bg-blue-500 flex items-center gap-1.5 bg-blue-600/80 border border-blue-400/40 px-3 py-1.5 rounded-lg transition shadow-sm">
                         <i class="fa-solid fa-dice"></i>
-                        <span>Escolher Aleatório</span>
+                        <span>Aleatório</span>
                     </button>
                 </div>
 
                 <!-- Numbers Grid Container -->
-                <div id="numbers-grid" class="grid grid-cols-5 sm:grid-cols-10 gap-2 sm:gap-2.5">
-                    <!-- Populated dynamically via JS -->
-                </div>
+                <div id="numbers-grid" class="grid grid-cols-5 sm:grid-cols-10 gap-2 sm:gap-2.5"></div>
             </div>
 
             <!-- Right Column: Checkout & Buyer Details Form -->
@@ -316,14 +306,13 @@
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
                             <i class="fa-solid fa-ticket text-aero-red"></i>
-                            <span>Finalizar Reserva</span>
+                            <span>Reservar Bilhetes</span>
                         </h3>
                         <button id="clear-selection-btn" onclick="clearSelection()" class="hidden text-xs text-rose-400 hover:text-rose-300 font-semibold">
                             Limpar seleção
                         </button>
                     </div>
 
-                    <!-- Selected Numbers Summary Box -->
                     <div class="bg-aero-950/90 border border-blue-400/20 rounded-2xl p-4 mb-5">
                         <div class="flex justify-between items-center mb-2">
                             <span class="text-xs font-semibold uppercase tracking-wider text-blue-200/70">Números Escolhidos</span>
@@ -340,7 +329,6 @@
                         </div>
                     </div>
 
-                    <!-- Buyer Form -->
                     <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
                         <div>
                             <label for="buyer-name" class="block text-xs font-bold uppercase tracking-wider text-blue-100 mb-1.5">
@@ -371,13 +359,13 @@
                         <button type="submit" id="submit-order-btn" disabled
                             class="w-full py-3.5 px-6 rounded-xl font-display font-extrabold text-sm sm:text-base uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg disabled:opacity-40 disabled:cursor-not-allowed bg-gradient-to-r from-aero-red via-rose-600 to-blue-600 hover:from-rose-500 hover:to-blue-500 text-white shadow-aero-red/30 border border-white/15">
                             <i class="fa-brands fa-pix text-lg"></i>
-                            <span>Pagar com PIX e Garantir</span>
+                            <span>Gerar PIX e Reservar</span>
                         </button>
                     </form>
 
                     <p class="text-[11px] text-center text-blue-200/65 mt-4 leading-relaxed">
                         <i class="fa-solid fa-shield-halved text-sky-400 mr-1"></i>
-                        Pagamento via PIX direto para a chave CPF da equipe TKVm. Assim que confirmado, seu número é marcado como vendido na hora!
+                        Seu bilhete fica reservado enquanto você realiza o PIX e é validado como <strong>Vendido</strong> logo após a conferência do comprovante.
                     </p>
                 </div>
             </div>
@@ -397,9 +385,9 @@
         </p>
     </footer>
 
-    <!-- PIX Payment Modal -->
+    <!-- PIX Payment Modal (Reservation + Proof Submission) -->
     <div id="pix-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-        <div class="bg-aero-900 border border-aero-red/45 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative overflow-hidden">
+        <div class="bg-aero-900 border border-aero-red/45 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative overflow-y-auto max-h-[92vh]">
             <button onclick="closePixModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-blue-950 hover:bg-aero-red/20 flex items-center justify-center text-blue-200 hover:text-white transition">
                 <i class="fa-solid fa-xmark"></i>
             </button>
@@ -409,10 +397,10 @@
                     <svg viewBox="0 0 200 200" class="w-full h-full"><use href="#tkvm-crest-logo"/></svg>
                 </div>
                 <h3 class="font-display text-2xl font-extrabold text-white">Pagamento via PIX • TKV<span class="text-aero-red font-serif italic">m</span></h3>
-                <p class="text-xs text-blue-200/80 mt-1">Transfira o valor exato abaixo para garantir seus números.</p>
+                <p class="text-xs text-blue-200/80 mt-1">Faça a transferência e envie o comprovante para confirmar sua compra.</p>
             </div>
 
-            <!-- Order Summary inside Modal -->
+            <!-- Order Summary -->
             <div class="bg-aero-950 border border-blue-400/20 rounded-2xl p-4 mb-4 space-y-2 text-sm">
                 <div class="flex justify-between">
                     <span class="text-blue-200/70">Comprador:</span>
@@ -435,160 +423,249 @@
                     <span id="pix-key-value" class="font-mono text-base font-bold text-sky-300 select-all">02329099622</span>
                     <button onclick="copyPixKey()" class="px-3.5 py-1.5 rounded-lg bg-aero-red hover:bg-rose-600 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
                         <i class="fa-regular fa-copy"></i>
-                        <span>Copiar Chave</span>
+                        <span>Copiar</span>
                     </button>
                 </div>
-                <p class="text-[11px] text-blue-300/60 mt-2">
-                    <i class="fa-solid fa-circle-info text-sky-400 mr-1"></i>
-                    Abra o app do seu banco, escolha <strong>PIX &gt; Chave CPF</strong> e cole o número acima.
+            </div>
+
+            <!-- Receipt Identification / Proof Input -->
+            <div class="bg-aero-950/90 border border-amber-400/30 rounded-2xl p-3.5 mb-4">
+                <label for="pix-receipt-note" class="block text-[11px] font-bold uppercase tracking-wider text-amber-300 mb-1.5">
+                    <i class="fa-solid fa-receipt mr-1"></i> Identificação do Comprovante (ID E2E ou Titular) *
+                </label>
+                <input type="text" id="pix-receipt-note" placeholder="Ex: PIX enviado por João Silva / ID E32..." 
+                    class="w-full px-3 py-2 rounded-xl bg-aero-900 border border-blue-400/25 text-white placeholder-blue-300/40 text-xs focus:outline-none focus:border-amber-400">
+                <p class="text-[10px] text-blue-200/60 mt-1.5">
+                    O bilhete ficará <strong>Reservado (Aguardando Confirmação)</strong> até a conferência do pagamento no painel do organizador.
                 </p>
             </div>
 
             <!-- Action Buttons -->
             <div class="space-y-2.5">
-                <button onclick="confirmPurchaseAndUpdate()" id="confirm-pix-btn" class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-slate-950 font-display font-extrabold text-sm uppercase tracking-wider transition shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-circle-check text-lg"></i>
-                    <span>Já fiz o PIX / Confirmar Compra</span>
+                <button onclick="submitPaymentProofReservation()" id="confirm-pix-btn" class="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-display font-extrabold text-xs sm:text-sm uppercase tracking-wider transition shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Já Paguei • Enviar para Confirmação</span>
                 </button>
 
-                <button onclick="sendWhatsAppReceipt()" class="w-full py-2.5 px-4 rounded-xl bg-blue-600/25 hover:bg-blue-600/40 border border-blue-400/35 text-sky-200 font-semibold text-xs transition flex items-center justify-center gap-2">
+                <button onclick="sendWhatsAppReceipt()" class="w-full py-2.5 px-4 rounded-xl bg-emerald-600/25 hover:bg-emerald-600/40 border border-emerald-400/35 text-emerald-200 font-semibold text-xs transition flex items-center justify-center gap-2">
                     <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i>
-                    <span>Enviar Comprovante no WhatsApp</span>
+                    <span>Enviar Comprovante Direto no WhatsApp</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Organizer / Sales Panel Modal -->
+    <!-- Admin Login Gate Modal (Restricted to arthurgss007@gmail.com) -->
+    <div id="admin-login-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-sm">
+        <div class="bg-aero-900 border border-blue-400/30 rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl relative">
+            <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-blue-950 hover:bg-aero-red/20 flex items-center justify-center text-blue-200 hover:text-white transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-5">
+                <div class="w-14 h-14 rounded-2xl bg-aero-red/20 border border-aero-red/40 flex items-center justify-center text-aero-red text-2xl mx-auto mb-3">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3 class="font-display text-xl font-extrabold text-white">Acesso Restrito ao Organizador</h3>
+                <p class="text-xs text-blue-200/75 mt-1">
+                    Somente a conta autorizada <span class="text-sky-300 font-mono font-bold">arthurgss007@gmail.com</span> pode visualizar compradores e confirmar pagamentos.
+                </p>
+            </div>
+
+            <div class="space-y-3">
+                <button onclick="loginWithAuthorizedGoogle()" class="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-sm transition flex items-center justify-center gap-2.5 shadow-lg">
+                    <i class="fa-brands fa-google text-red-600 text-base"></i>
+                    <span>Entrar com Gmail (arthurgss007@gmail.com)</span>
+                </button>
+
+                <div class="relative flex py-2 items-center">
+                    <div class="flex-grow border-t border-blue-400/20"></div>
+                    <span class="flex-shrink mx-3 text-[11px] uppercase text-blue-300/50">ou chave de acesso local</span>
+                    <div class="flex-grow border-t border-blue-400/20"></div>
+                </div>
+
+                <form onsubmit="loginWithAdminPin(event)" class="space-y-2.5">
+                    <input type="email" id="admin-email-check" value="arthurgss007@gmail.com" readonly
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-aero-950/70 border border-blue-400/20 text-sky-300 font-mono text-xs">
+                    <input type="password" id="admin-pin-input" placeholder="Digite sua senha de administrador" required
+                        class="w-full px-3.5 py-2.5 rounded-xl bg-aero-950 border border-blue-400/25 text-white placeholder-blue-300/40 text-sm focus:outline-none focus:border-aero-red">
+                    <button type="submit" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs uppercase tracking-wider transition">
+                        Desbloquear Painel
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Organizer / Sales Panel Modal (Only accessible after Auth) -->
     <div id="admin-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-        <div class="bg-aero-900 border border-blue-400/25 rounded-3xl max-w-2xl w-full p-6 shadow-2xl flex flex-col max-h-[85vh]">
+        <div class="bg-aero-900 border border-blue-400/25 rounded-3xl max-w-3xl w-full p-6 shadow-2xl flex flex-col max-h-[88vh]">
             <div class="flex items-center justify-between pb-4 border-b border-blue-400/15">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full ring-2 ring-aero-red/60 shrink-0 bg-[#07093B]">
                         <svg viewBox="0 0 200 200" class="w-full h-full"><use href="#tkvm-crest-logo"/></svg>
                     </div>
                     <div>
-                        <h3 class="font-display text-xl font-bold text-white flex items-center gap-2">
-                            <span>Controle de Vendas • TKV<span class="text-aero-red font-serif italic">m</span></span>
+                        <h3 class="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+                            <span>Painel Privado • TKV<span class="text-aero-red font-serif italic">m</span></span>
+                            <span class="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full">arthurgss007@gmail.com</span>
                         </h3>
-                        <p class="text-xs text-blue-200/70">Lista em tempo real dos números vendidos e compradores.</p>
+                        <p class="text-xs text-blue-200/70">Confirme os PIX recebidos e sincronize com sua planilha.</p>
                     </div>
                 </div>
-                <button onclick="toggleAdminModal()" class="w-9 h-9 rounded-full bg-blue-950 hover:bg-aero-red/20 flex items-center justify-center text-blue-200 hover:text-white transition">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="logoutAdmin()" title="Sair do painel" class="px-3 py-1.5 rounded-lg bg-rose-950/70 hover:bg-aero-red/30 text-rose-300 text-xs font-semibold transition">
+                        Sair
+                    </button>
+                    <button onclick="closeAdminModal()" class="w-9 h-9 rounded-full bg-blue-950 hover:bg-aero-red/20 flex items-center justify-center text-blue-200 hover:text-white transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
             </div>
 
             <!-- Summary Counters -->
-            <div class="grid grid-cols-3 gap-3 my-4">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
                 <div class="bg-aero-950 border border-blue-400/20 rounded-2xl p-3">
-                    <p class="text-[11px] text-blue-200/70">Arrecadado</p>
-                    <p id="admin-revenue" class="font-display text-lg font-extrabold text-emerald-400">R$ 60,00</p>
+                    <p class="text-[11px] text-blue-200/70">Confirmado (Caixa)</p>
+                    <p id="admin-revenue" class="font-display text-lg font-extrabold text-emerald-400">R$ 75,00</p>
+                </div>
+                <div class="bg-aero-950 border border-amber-400/30 rounded-2xl p-3">
+                    <p class="text-[11px] text-amber-200/70">Aguardando PIX</p>
+                    <p id="admin-pending-count" class="font-display text-lg font-extrabold text-amber-400">0</p>
                 </div>
                 <div class="bg-aero-950 border border-blue-400/20 rounded-2xl p-3">
                     <p class="text-[11px] text-blue-200/70">Vendidos</p>
-                    <p id="admin-sold-count" class="font-display text-lg font-extrabold text-aero-red">12 / 100</p>
+                    <p id="admin-sold-count" class="font-display text-lg font-extrabold text-aero-red">15 / 100</p>
                 </div>
                 <div class="bg-aero-950 border border-blue-400/20 rounded-2xl p-3">
-                    <p class="text-[11px] text-blue-200/70">Restantes</p>
-                    <p id="admin-free-count" class="font-display text-lg font-extrabold text-sky-400">88</p>
+                    <p class="text-[11px] text-blue-200/70">Livres</p>
+                    <p id="admin-free-count" class="font-display text-lg font-extrabold text-sky-400">85</p>
                 </div>
             </div>
 
-            <!-- List of Sold Tickets -->
-            <div id="sales-list-container" class="flex-1 overflow-y-auto space-y-2 pr-1">
-                <!-- Populated dynamically -->
-            </div>
+            <!-- List of Pending & Sold Tickets -->
+            <div id="sales-list-container" class="flex-1 overflow-y-auto space-y-2 pr-1"></div>
 
-            <div class="pt-4 mt-4 border-t border-blue-400/15 flex flex-wrap justify-between items-center gap-3">
-                <div class="flex items-center gap-3">
-                    <button onclick="resetToOriginalFlyer()" class="text-xs text-blue-300/60 hover:text-aero-red transition flex items-center gap-1.5">
+            <div class="pt-4 mt-4 border-t border-blue-400/15 flex flex-wrap justify-between items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2">
+                    <button onclick="exportSpreadsheetCSV()" class="text-xs bg-emerald-600/25 hover:bg-emerald-600/40 border border-emerald-400/40 text-emerald-300 font-bold px-3 py-2 rounded-xl transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-excel"></i>
+                        <span>Baixar Planilha (.CSV)</span>
+                    </button>
+                    <button onclick="toggleCloudSetupModal()" class="text-xs bg-sky-600/20 hover:bg-sky-600/35 border border-sky-400/35 text-sky-300 font-semibold px-3 py-2 rounded-xl transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-table"></i>
+                        <span>Conectar Planilha & Nuvem</span>
+                    </button>
+                    <button onclick="resetToOriginalSpreadsheet()" class="text-xs text-blue-300/60 hover:text-aero-red px-2 py-1.5 transition flex items-center gap-1">
                         <i class="fa-solid fa-rotate-left"></i>
-                        <span>Restaurar cartaz</span>
-                    </button>
-                    <button onclick="toggleCloudSetupModal()" class="text-xs text-sky-400 hover:text-sky-300 font-semibold transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
-                        <span>Configurar Nuvem (Multi-Celular)</span>
+                        <span>Restaurar Planilha Base</span>
                     </button>
                 </div>
-                <button onclick="toggleAdminModal()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition">
+                <button onclick="closeAdminModal()" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition">
                     Fechar
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Cloud Setup Guide Modal (for Netlify / External Hosting) -->
+    <!-- Cloud & Google Sheets Integration Modal -->
     <div id="cloud-setup-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-sm">
         <div class="bg-aero-900 border border-sky-400/35 rounded-3xl max-w-xl w-full p-6 shadow-2xl max-h-[88vh] overflow-y-auto">
             <div class="flex items-center justify-between pb-3 border-b border-blue-400/15 mb-4">
                 <h3 class="font-display text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-cloud text-sky-400"></i>
-                    <span>Ativar Vendas ao Vivo em Todos os Celulares</span>
+                    <span>Conexão Google Sheets & Firebase</span>
                 </h3>
                 <button onclick="toggleCloudSetupModal()" class="w-8 h-8 rounded-full bg-blue-950 hover:bg-aero-red/20 flex items-center justify-center text-blue-200 hover:text-white transition">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
-            <div class="space-y-3 text-xs sm:text-sm text-blue-100 leading-relaxed">
-                <p>Aqui no preview o sistema já sincroniza na nuvem automaticamente. Quando você baixar o <code class="text-sky-300 font-mono">index.html</code> para colocar no <strong>Netlify</strong>, siga estes 3 passos rápidos (100% grátis):</p>
-                
-                <div class="bg-aero-950/90 border border-blue-400/20 rounded-2xl p-3.5 space-y-2">
-                    <p class="font-bold text-sky-300">1. Crie o banco gratuito:</p>
-                    <p class="text-blue-200/80">Acesse <a href="https://console.firebase.google.com" target="_blank" class="underline text-sky-400">console.firebase.google.com</a>, crie um projeto, ative o <strong>Authentication (Anônimo)</strong> e o <strong>Firestore Database (Modo de teste)</strong>.</p>
+            <div class="space-y-4 text-xs sm:text-sm text-blue-100 leading-relaxed">
+                <!-- Google Sheets Webhook Config -->
+                <div class="bg-aero-950/90 border border-emerald-400/30 rounded-2xl p-4 space-y-2">
+                    <p class="font-bold text-emerald-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-table"></i>
+                        <span>1. URL do Google Apps Script (Planilha Automática)</span>
+                    </p>
+                    <p class="text-xs text-blue-200/80">
+                        Cole a URL do Web App da sua planilha <strong>4ª RIFA 2026</strong> para que cada venda confirmada preencha automaticamente as colunas <code class="text-sky-300">Nº</code>, <code class="text-sky-300">COMPRADOR</code> e <code class="text-sky-300">CONTATO</code>:
+                    </p>
+                    <input type="url" id="sheets-webhook-input" placeholder="https://script.google.com/macros/s/.../exec" 
+                        class="w-full p-2.5 rounded-xl bg-aero-900 border border-blue-400/25 font-mono text-xs text-emerald-200 focus:outline-none focus:border-emerald-400">
+                    <button onclick="saveSheetsWebhook()" class="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs transition">
+                        Salvar Link da Planilha
+                    </button>
                 </div>
 
-                <div class="bg-aero-950/90 border border-blue-400/20 rounded-2xl p-3.5 space-y-2">
-                    <p class="font-bold text-sky-300">2. Cole a configuração abaixo e salve:</p>
-                    <p class="text-blue-200/80">Nas configurações do seu projeto web, copie o bloco <code class="text-rose-300">firebaseConfig</code> (em formato JSON) e cole abaixo ou diretamente na constante <code class="text-sky-300">CUSTOM_CLOUD_CONFIG</code> dentro do arquivo <code class="text-sky-300">index.html</code>:</p>
-                    <textarea id="custom-firebase-json" rows="4" placeholder='{"apiKey": "...", "authDomain": "...", "projectId": "...", "appId": "..."}' class="w-full p-2.5 rounded-xl bg-aero-900 border border-blue-400/25 font-mono text-xs text-sky-200 focus:outline-none focus:border-sky-400"></textarea>
-                    <button onclick="saveCustomCloudConfig()" class="w-full py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition">
-                        Salvar Configuração e Conectar Agora
+                <!-- Firebase Config -->
+                <div class="bg-aero-950/90 border border-blue-400/20 rounded-2xl p-4 space-y-2">
+                    <p class="font-bold text-sky-300">2. Configuração Firebase (Login Google + Tempo Real)</p>
+                    <p class="text-xs text-blue-200/80">
+                        Ative <strong>Authentication (Google e Anônimo)</strong> e <strong>Firestore</strong> no Firebase Console e cole o JSON abaixo:
+                    </p>
+                    <textarea id="custom-firebase-json" rows="3" placeholder='{"apiKey": "...", "authDomain": "...", "projectId": "...", "appId": "..."}' class="w-full p-2.5 rounded-xl bg-aero-900 border border-blue-400/25 font-mono text-xs text-sky-200 focus:outline-none focus:border-sky-400"></textarea>
+                    <button onclick="saveCustomCloudConfig()" class="w-full py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs transition">
+                        Salvar Configuração Firebase
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Application Logic (Real-Time Cloud Sync + Instant Fallback) -->
+    <!-- Application Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Cole aqui seu firebaseConfig quando for subir o arquivo index.html no Netlify:
+        // =========================================================================
+        // CONFIGURAÇÕES DO ADMINISTRADOR E INTEGRAÇÕES (PREENCHA PARA PRODUÇÃO)
+        // =========================================================================
+        const AUTHORIZED_ADMIN_EMAIL = "arthurgss007@gmail.com";
+        const ADMIN_FALLBACK_PIN = "TKVm2026"; // Altere para sua senha pessoal de contingência
+        const ORGANIZER_WHATSAPP = "5532984871810"; // Seu WhatsApp para receber comprovantes
+
+        // Cole aqui seu firebaseConfig quando for subir no Netlify:
         const CUSTOM_CLOUD_CONFIG = null;
 
-        // Raffle Configuration Constants
+        // Cole aqui a URL do Google Apps Script conectada à sua planilha "4ª RIFA 2026":
+        const DEFAULT_SHEETS_WEBHOOK_URL = "";
+
         const TICKET_PRICE = 5.00;
         const PIX_KEY = "02329099622";
         const START_NUM = 400;
         const END_NUM = 499;
-        const STORAGE_KEY = "aero_rifa_tkv_sold_v1";
+        const STORAGE_KEY = "aero_rifa_tkv_tickets_v2";
         const CLOUD_CFG_STORAGE_KEY = "aero_rifa_tkv_cloud_cfg_v1";
+        const SHEETS_URL_STORAGE_KEY = "aero_rifa_tkv_sheets_url_v1";
+        const ADMIN_SESSION_KEY = "aero_rifa_tkv_admin_auth";
 
-        // Initial Sold Numbers from the original flyer image (400-404, 431, 438, 475-478, 495)
-        const INITIAL_FLYER_SOLD = {
-            400: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            401: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            402: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            403: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            404: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            431: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            438: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            475: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            476: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            477: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            478: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" },
-            495: { name: "Venda Cartaz TKVm", phone: "Confirmado Equipe", date: "Cartaz Oficial" }
+        // Dados importados diretamente da planilha "Arthur Gabriel dos Santos Silva.xlsx" (4ª RIFA 2026)
+        const INITIAL_SPREADSHEET_TICKETS = {
+            400: { name: "João Pedro", phone: "(32) 99937-3355", status: "sold", date: "Planilha Base" },
+            401: { name: "Antônio (vô Renato)", phone: "(37) 98811-0970", status: "sold", date: "Planilha Base" },
+            402: { name: "Geralda (vó Renato)", phone: "(37) 98811-0970", status: "sold", date: "Planilha Base" },
+            403: { name: "Geralda (vó Renato)", phone: "(37) 98811-0970", status: "sold", date: "Planilha Base" },
+            404: { name: "Kaik Ferreira", phone: "(32) 99845-2344", status: "sold", date: "Planilha Base" },
+            405: { name: "Renato Dias Campos de Freitas", phone: "(32) 99845-2344", status: "sold", date: "Planilha Base" },
+            406: { name: "Renato Dias Campos de Freitas", phone: "(32) 99845-2344", status: "sold", date: "Planilha Base" },
+            414: { name: "Arthur Gabriel", phone: "(32) 98487-1810", status: "sold", date: "Planilha Base" },
+            431: { name: "Thierry Ruffo", phone: "(32) 98468-0687", status: "sold", date: "Planilha Base" },
+            438: { name: "Gustavo Guedes", phone: "(32) 98512-5057", status: "sold", date: "Planilha Base" },
+            475: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836", status: "sold", date: "Planilha Base" },
+            476: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836", status: "sold", date: "Planilha Base" },
+            477: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836", status: "sold", date: "Planilha Base" },
+            478: { name: "Adriana Maria dos Santos", phone: "(32) 99964-2836", status: "sold", date: "Planilha Base" },
+            495: { name: "Daniel dos Santos Almeida", phone: "(32) 98464-1402", status: "sold", date: "Planilha Base" }
         };
 
         // App State
-        let soldTickets = {};
+        let ticketsMap = {}; // { [num]: { name, phone, status: 'pending' | 'sold', receiptNote, date } }
         let selectedNumbers = new Set();
         let currentFilter = 'all';
         let pendingOrder = null;
+        let isAdminAuthenticated = sessionStorage.getItem(ADMIN_SESSION_KEY) === AUTHORIZED_ADMIN_EMAIL;
 
         // Cloud variables
         let db = null;
@@ -596,6 +673,16 @@
         let useFirestore = false;
         let unsubscribeTickets = null;
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'aero-rifa-tkv';
+
+        function updateAdminBadgeUI() {
+            const icon = document.getElementById('admin-lock-icon');
+            if (!icon) return;
+            if (isAdminAuthenticated) {
+                icon.className = "fa-solid fa-unlock text-emerald-400";
+            } else {
+                icon.className = "fa-solid fa-lock text-aero-red";
+            }
+        }
 
         function updateSyncStatus(isOnline) {
             const dot = document.getElementById('sync-dot');
@@ -628,18 +715,46 @@
             return null;
         }
 
-        // Initialize Data Layer with Real-Time Cloud Sync
+        function getSheetsWebhookUrl() {
+            return localStorage.getItem(SHEETS_URL_STORAGE_KEY) || DEFAULT_SHEETS_WEBHOOK_URL;
+        }
+
+        // Send confirmed sale to Google Sheets via Apps Script Webhook
+        async function syncTicketToSpreadsheet(num, record) {
+            const webhookUrl = getSheetsWebhookUrl();
+            if (!webhookUrl) return false;
+
+            try {
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: record ? 'upsert' : 'clear',
+                        numero: Number(num),
+                        comprador: record ? record.name : '',
+                        contato: record ? record.phone : ''
+                    })
+                });
+                return true;
+            } catch (err) {
+                console.warn("Erro ao enviar para Google Sheets:", err);
+                return false;
+            }
+        }
+
         async function initDataLayer() {
+            updateAdminBadgeUI();
             const cached = localStorage.getItem(STORAGE_KEY);
             if (cached) {
                 try {
-                    soldTickets = JSON.parse(cached);
+                    ticketsMap = JSON.parse(cached);
                 } catch (e) {
-                    soldTickets = { ...INITIAL_FLYER_SOLD };
+                    ticketsMap = { ...INITIAL_SPREADSHEET_TICKETS };
                 }
             } else {
-                soldTickets = { ...INITIAL_FLYER_SOLD };
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(soldTickets));
+                ticketsMap = { ...INITIAL_SPREADSHEET_TICKETS };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
             }
             renderAll();
 
@@ -656,11 +771,17 @@
 
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
+                } else if (!auth.currentUser) {
                     await signInAnonymously(auth);
                 }
 
                 if (auth.currentUser) {
+                    if (auth.currentUser.email === AUTHORIZED_ADMIN_EMAIL) {
+                        isAdminAuthenticated = true;
+                        sessionStorage.setItem(ADMIN_SESSION_KEY, AUTHORIZED_ADMIN_EMAIL);
+                        updateAdminBadgeUI();
+                    }
+
                     useFirestore = true;
                     updateSyncStatus(true);
 
@@ -668,28 +789,31 @@
                     const ticketsCol = collection(db, 'artifacts', appId, 'public', 'data', 'tickets');
 
                     unsubscribeTickets = onSnapshot(ticketsCol, (snapshot) => {
-                        const remoteSold = { ...INITIAL_FLYER_SOLD };
+                        const remoteMap = { ...INITIAL_SPREADSHEET_TICKETS };
                         snapshot.forEach((docSnap) => {
                             const num = parseInt(docSnap.id, 10);
                             if (!isNaN(num)) {
-                                remoteSold[num] = docSnap.data();
+                                const data = docSnap.data();
+                                remoteMap[num] = {
+                                    ...data,
+                                    status: data.status || 'sold'
+                                };
                             }
                         });
 
-                        soldTickets = remoteSold;
-                        localStorage.setItem(STORAGE_KEY, JSON.stringify(soldTickets));
+                        ticketsMap = remoteMap;
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
 
-                        // Remove any selected numbers that were just bought by someone else
                         let conflict = false;
                         selectedNumbers.forEach(n => {
-                            if (soldTickets[n]) {
+                            if (ticketsMap[n]) {
                                 selectedNumbers.delete(n);
                                 conflict = true;
                             }
                         });
 
                         if (conflict) {
-                            showToast("Atenção: um número que você marcou acabou de ser comprado por outra pessoa!", "warning");
+                            showToast("Um número que você selecionou acabou de ser reservado por outra pessoa!", "warning");
                         }
 
                         renderAll();
@@ -712,16 +836,21 @@
             renderGrid();
             renderStats();
             renderSelectionSummary();
-            renderAdminList();
+            if (isAdminAuthenticated) {
+                renderAdminList();
+            }
         }
 
         function renderStats() {
             const totalCount = END_NUM - START_NUM + 1;
-            const soldCount = Object.keys(soldTickets).length;
-            const availableCount = totalCount - soldCount;
+            const entries = Object.values(ticketsMap);
+            const soldCount = entries.filter(t => t.status === 'sold').length;
+            const pendingCount = entries.filter(t => t.status === 'pending').length;
+            const availableCount = totalCount - soldCount - pendingCount;
             const percent = Math.round((soldCount / totalCount) * 100);
 
             document.getElementById('stat-available').textContent = availableCount;
+            document.getElementById('stat-pending').textContent = pendingCount;
             document.getElementById('stat-sold').textContent = soldCount;
             document.getElementById('progress-percent').textContent = `${percent}% vendidos`;
             document.getElementById('progress-bar').style.width = `${percent}%`;
@@ -732,10 +861,12 @@
             grid.innerHTML = '';
 
             for (let num = START_NUM; num <= END_NUM; num++) {
-                const isSold = Boolean(soldTickets[num]);
+                const ticket = ticketsMap[num];
+                const isSold = ticket && ticket.status === 'sold';
+                const isPending = ticket && ticket.status === 'pending';
                 const isSelected = selectedNumbers.has(num);
 
-                if (currentFilter === 'available' && isSold) continue;
+                if (currentFilter === 'available' && (isSold || isPending)) continue;
                 if (currentFilter === 'sold' && !isSold) continue;
 
                 const btn = document.createElement('button');
@@ -743,17 +874,26 @@
                 btn.className = `num-tile h-12 sm:h-13 rounded-xl border font-display text-sm sm:text-base font-bold flex flex-col items-center justify-center relative overflow-hidden ${
                     isSold 
                         ? 'num-sold' 
-                        : isSelected 
-                            ? 'num-selected' 
-                            : 'num-available bg-aero-800/85 border-blue-400/25 text-white'
+                        : isPending
+                            ? 'num-pending'
+                            : isSelected 
+                                ? 'num-selected' 
+                                : 'num-available bg-aero-800/85 border-blue-400/25 text-white'
                 }`;
 
                 if (isSold) {
                     btn.disabled = true;
-                    btn.title = `Número ${num} - Vendido para ${soldTickets[num].name}`;
+                    btn.title = `Número ${num} - Vendido`;
                     btn.innerHTML = `
                         <span class="line-through opacity-50">${num}</span>
                         <span class="text-[9px] uppercase tracking-tighter font-sans font-extrabold text-aero-red -mt-0.5">Vendido</span>
+                    `;
+                } else if (isPending) {
+                    btn.disabled = true;
+                    btn.title = `Número ${num} - Aguardando confirmação do PIX`;
+                    btn.innerHTML = `
+                        <span class="opacity-80">${num}</span>
+                        <span class="text-[8px] uppercase tracking-tighter font-sans font-extrabold text-amber-400 -mt-0.5">Aguard.</span>
                     `;
                 } else {
                     btn.onclick = () => toggleNumber(num);
@@ -797,46 +937,185 @@
             }
         }
 
+        // =========================================================================
+        // CONTROLE DE ACESSO PRIVADO (SOMENTE arthurgss007@gmail.com)
+        // =========================================================================
+        window.openAdminAccess = function() {
+            if (isAdminAuthenticated) {
+                renderAdminList();
+                const modal = document.getElementById('admin-modal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                const loginModal = document.getElementById('admin-login-modal');
+                loginModal.classList.remove('hidden');
+                loginModal.classList.add('flex');
+            }
+        };
+
+        window.closeAdminLoginModal = function() {
+            const modal = document.getElementById('admin-login-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        window.closeAdminModal = function() {
+            const modal = document.getElementById('admin-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
+
+        window.loginWithAuthorizedGoogle = async function() {
+            if (!auth) {
+                showToast("Firebase não configurado. Use a senha local abaixo ou configure o Firebase.", "warning");
+                return;
+            }
+            try {
+                const provider = new GoogleAuthProvider();
+                provider.setCustomParameters({ login_hint: AUTHORIZED_ADMIN_EMAIL });
+                const result = await signInWithPopup(auth, provider);
+                const userEmail = (result.user?.email || "").toLowerCase();
+
+                if (userEmail === AUTHORIZED_ADMIN_EMAIL.toLowerCase()) {
+                    isAdminAuthenticated = true;
+                    sessionStorage.setItem(ADMIN_SESSION_KEY, AUTHORIZED_ADMIN_EMAIL);
+                    updateAdminBadgeUI();
+                    closeAdminLoginModal();
+                    openAdminAccess();
+                    showToast(`Bem-vindo, Arthur (${userEmail})!`, "success");
+                } else {
+                    await signInAnonymously(auth);
+                    showToast(`Acesso negado para ${userEmail}. Apenas ${AUTHORIZED_ADMIN_EMAIL} tem permissão.`, "warning");
+                }
+            } catch (err) {
+                console.warn(err);
+                showToast("Não foi possível autenticar via popup Google. Use a senha de administrador.", "warning");
+            }
+        };
+
+        window.loginWithAdminPin = function(e) {
+            e.preventDefault();
+            const emailVal = document.getElementById('admin-email-check').value.trim().toLowerCase();
+            const pinVal = document.getElementById('admin-pin-input').value.trim();
+
+            if (emailVal === AUTHORIZED_ADMIN_EMAIL && pinVal === ADMIN_FALLBACK_PIN) {
+                isAdminAuthenticated = true;
+                sessionStorage.setItem(ADMIN_SESSION_KEY, AUTHORIZED_ADMIN_EMAIL);
+                document.getElementById('admin-pin-input').value = '';
+                updateAdminBadgeUI();
+                closeAdminLoginModal();
+                openAdminAccess();
+                showToast("Painel desbloqueado para arthurgss007@gmail.com!", "success");
+            } else {
+                showToast("Credenciais incorretas. Acesso restrito a arthurgss007@gmail.com.", "warning");
+            }
+        };
+
+        window.logoutAdmin = function() {
+            isAdminAuthenticated = false;
+            sessionStorage.removeItem(ADMIN_SESSION_KEY);
+            updateAdminBadgeUI();
+            closeAdminModal();
+            showToast("Sessão administrativa encerrada.", "info");
+        };
+
         function renderAdminList() {
+            if (!isAdminAuthenticated) return;
+
             const container = document.getElementById('sales-list-container');
-            const soldEntries = Object.entries(soldTickets).sort((a, b) => Number(a[0]) - Number(b[0]));
-            const count = soldEntries.length;
+            const entries = Object.entries(ticketsMap).sort((a, b) => {
+                // Show pending confirmations first, then sorted by ticket number
+                const statusA = a[1].status === 'pending' ? 0 : 1;
+                const statusB = b[1].status === 'pending' ? 0 : 1;
+                if (statusA !== statusB) return statusA - statusB;
+                return Number(a[0]) - Number(b[0]);
+            });
 
-            document.getElementById('admin-revenue').textContent = formatBRL(count * TICKET_PRICE);
-            document.getElementById('admin-sold-count').textContent = `${count} / 100`;
-            document.getElementById('admin-free-count').textContent = `${100 - count}`;
+            const soldCount = entries.filter(([, info]) => info.status === 'sold').length;
+            const pendingCount = entries.filter(([, info]) => info.status === 'pending').length;
 
-            if (soldEntries.length === 0) {
-                container.innerHTML = `<p class="text-center text-sm text-blue-200/60 py-8">Nenhum número vendido ainda.</p>`;
+            document.getElementById('admin-revenue').textContent = formatBRL(soldCount * TICKET_PRICE);
+            document.getElementById('admin-pending-count').textContent = `${pendingCount}`;
+            document.getElementById('admin-sold-count').textContent = `${soldCount} / 100`;
+            document.getElementById('admin-free-count').textContent = `${100 - soldCount - pendingCount}`;
+
+            if (entries.length === 0) {
+                container.innerHTML = `<p class="text-center text-sm text-blue-200/60 py-8">Nenhum bilhete reservado ou vendido ainda.</p>`;
                 return;
             }
 
-            container.innerHTML = soldEntries.map(([num, info]) => `
-                <div class="flex items-center justify-between bg-aero-950/90 border border-blue-400/20 rounded-xl px-4 py-2.5">
+            container.innerHTML = entries.map(([num, info]) => {
+                const isPending = info.status === 'pending';
+                return `
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-aero-950/90 border ${isPending ? 'border-amber-400/50' : 'border-blue-400/20'} rounded-xl px-4 py-3">
                     <div class="flex items-center gap-3">
-                        <span class="w-11 h-9 rounded-lg bg-aero-red/20 border border-aero-red/40 text-aero-red font-display font-extrabold text-sm flex items-center justify-center">
+                        <span class="w-11 h-10 rounded-lg ${isPending ? 'bg-amber-500/20 border-amber-400/50 text-amber-300' : 'bg-aero-red/20 border-aero-red/40 text-aero-red'} border font-display font-extrabold text-sm flex items-center justify-center shrink-0">
                             ${num}
                         </span>
                         <div>
                             <p class="text-sm font-bold text-white">${escapeHtml(info.name)}</p>
-                            <p class="text-xs text-blue-200/70"><i class="fa-brands fa-whatsapp text-emerald-400 mr-1"></i>${escapeHtml(info.phone)}</p>
+                            <p class="text-xs text-blue-200/75">
+                                <i class="fa-brands fa-whatsapp text-emerald-400 mr-1"></i>${escapeHtml(info.phone)}
+                                <span class="text-blue-300/40 mx-1">•</span>
+                                <span class="text-[11px] text-blue-300/60">${escapeHtml(info.date || '')}</span>
+                            </p>
+                            ${info.receiptNote ? `<p class="text-[11px] text-amber-300/90 mt-0.5"><i class="fa-solid fa-receipt mr-1"></i>Comprovante: ${escapeHtml(info.receiptNote)}</p>` : ''}
                         </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
-                            Vendido
-                        </span>
-                        <button onclick="window.releaseTicket(${num})" title="Liberar número novamente" class="w-7 h-7 rounded-lg bg-white/5 hover:bg-aero-red/20 text-blue-200/60 hover:text-aero-red flex items-center justify-center transition">
+                    <div class="flex items-center gap-2 self-end sm:self-center">
+                        ${isPending ? `
+                            <button onclick="window.approvePayment(${num})" class="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs transition flex items-center gap-1 shadow">
+                                <i class="fa-solid fa-check"></i>
+                                <span>Confirmar PIX</span>
+                            </button>
+                        ` : `
+                            <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30">
+                                Pago / Planilha
+                            </span>
+                        `}
+                        <button onclick="window.releaseTicket(${num})" title="Cancelar reserva e liberar número" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-aero-red/25 text-blue-200/60 hover:text-aero-red flex items-center justify-center transition">
                             <i class="fa-solid fa-trash-can text-xs"></i>
                         </button>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
         }
 
+        // Approve payment -> Marks as SOLD and pushes to Google Sheets
+        window.approvePayment = async function(num) {
+            if (!isAdminAuthenticated || !ticketsMap[num]) return;
+
+            const updatedRecord = {
+                ...ticketsMap[num],
+                status: 'sold',
+                confirmedAt: new Date().toLocaleString('pt-BR')
+            };
+
+            ticketsMap[num] = updatedRecord;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
+
+            if (useFirestore && db && auth?.currentUser) {
+                try {
+                    await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tickets', String(num)), updatedRecord);
+                } catch (e) {
+                    console.warn(e);
+                }
+            }
+
+            const syncedSheet = await syncTicketToSpreadsheet(num, updatedRecord);
+            renderAll();
+            showToast(
+                syncedSheet 
+                    ? `Pagamento do nº ${num} confirmado e enviado para a planilha!` 
+                    : `Pagamento do nº ${num} confirmado como VENDIDO!`,
+                "success"
+            );
+        };
+
         window.releaseTicket = async function(num) {
-            delete soldTickets[num];
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(soldTickets));
+            if (!isAdminAuthenticated) return;
+            delete ticketsMap[num];
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
             if (useFirestore && db && auth?.currentUser) {
                 try {
                     await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'tickets', String(num)));
@@ -844,12 +1123,13 @@
                     console.warn(e);
                 }
             }
+            await syncTicketToSpreadsheet(num, null);
             renderAll();
             showToast(`Número ${num} liberado novamente!`, "info");
         };
 
         window.toggleNumber = function(num) {
-            if (soldTickets[num]) return;
+            if (ticketsMap[num]) return;
             if (selectedNumbers.has(num)) {
                 selectedNumbers.delete(num);
             } else {
@@ -862,7 +1142,7 @@
         window.selectRandomLucky = function() {
             const available = [];
             for (let n = START_NUM; n <= END_NUM; n++) {
-                if (!soldTickets[n] && !selectedNumbers.has(n)) {
+                if (!ticketsMap[n] && !selectedNumbers.has(n)) {
                     available.push(n);
                 }
             }
@@ -937,6 +1217,7 @@
             document.getElementById('modal-buyer-name').textContent = pendingOrder.name;
             document.getElementById('modal-numbers').textContent = pendingOrder.numbers.join(', ');
             document.getElementById('modal-total-amount').textContent = formatBRL(pendingOrder.total);
+            document.getElementById('pix-receipt-note').value = '';
 
             const modal = document.getElementById('pix-modal');
             modal.classList.remove('hidden');
@@ -950,39 +1231,38 @@
         };
 
         window.copyPixKey = function() {
-            const tempInput = document.createElement('input');
-            tempInput.value = PIX_KEY;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            tempInput.setSelectionRange(0, 99999);
-            try {
-                document.execCommand('copy');
-                showToast("Chave PIX (02329099622) copiada!", "success");
-            } catch (err) {
-                showToast("Chave PIX: 02329099622", "info");
-            }
-            document.body.removeChild(tempInput);
+            navigator.clipboard?.writeText(PIX_KEY).catch(() => {});
+            showToast("Chave PIX (02329099622) copiada!", "success");
         };
 
         window.sendWhatsAppReceipt = function() {
             if (!pendingOrder) return;
+            const receiptNote = document.getElementById('pix-receipt-note').value.trim();
             const msg = encodeURIComponent(
-                `Olá! Acabei de reservar número(s) na *AERO RIFA TKVm* 🏆\n\n` +
+                `Olá Arthur! Acabei de fazer o PIX da *AERO RIFA TKVm* 🏆\n\n` +
                 `👤 *Nome:* ${pendingOrder.name}\n` +
                 `🎟️ *Número(s):* ${pendingOrder.numbers.join(', ')}\n` +
-                `💰 *Valor PIX:* ${formatBRL(pendingOrder.total)}\n\n` +
-                `Segue o comprovante do PIX!`
+                `💰 *Valor PIX:* ${formatBRL(pendingOrder.total)}\n` +
+                (receiptNote ? `🧾 *Comprovante:* ${receiptNote}\n\n` : `\n`) +
+                `Segue o comprovante em anexo para confirmar meu bilhete!`
             );
-            window.open(`https://api.whatsapp.com/send?text=${msg}`, '_blank');
+            window.open(`https://api.whatsapp.com/send?phone=${ORGANIZER_WHATSAPP}&text=${msg}`, '_blank');
         };
 
-        window.confirmPurchaseAndUpdate = async function() {
+        // Places ticket in PENDING status until organizer confirms PIX payment
+        window.submitPaymentProofReservation = async function() {
             if (!pendingOrder) return;
 
-            // Verify real-time availability before confirming
-            const alreadyTaken = pendingOrder.numbers.filter(num => Boolean(soldTickets[num]));
+            const receiptNote = document.getElementById('pix-receipt-note').value.trim();
+            if (receiptNote.length < 3) {
+                showToast("Informe o nome do pagador ou ID do comprovante PIX antes de enviar.", "warning");
+                document.getElementById('pix-receipt-note').focus();
+                return;
+            }
+
+            const alreadyTaken = pendingOrder.numbers.filter(num => Boolean(ticketsMap[num]));
             if (alreadyTaken.length > 0) {
-                showToast(`Os números ${alreadyTaken.join(', ')} já foram vendidos! Escolha outros.`, "warning");
+                showToast(`Os números ${alreadyTaken.join(', ')} já foram reservados! Escolha outros.`, "warning");
                 alreadyTaken.forEach(n => selectedNumbers.delete(n));
                 closePixModal();
                 renderAll();
@@ -991,22 +1271,24 @@
 
             const btn = document.getElementById('confirm-pix-btn');
             btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Sincronizando venda...</span>`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i><span>Registrando reserva...</span>`;
 
             const timestamp = new Date().toLocaleString('pt-BR');
             const ticketRecord = {
                 name: pendingOrder.name,
                 phone: pendingOrder.phone,
+                status: 'pending',
+                receiptNote: receiptNote,
                 date: timestamp,
                 buyerUid: auth?.currentUser?.uid || 'local'
             };
 
             pendingOrder.numbers.forEach(num => {
-                soldTickets[num] = ticketRecord;
+                ticketsMap[num] = ticketRecord;
                 selectedNumbers.delete(num);
             });
 
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(soldTickets));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
 
             if (useFirestore && db && auth?.currentUser) {
                 try {
@@ -1017,45 +1299,68 @@
                     await Promise.all(promises);
                 } catch (err) {
                     console.error("Erro ao salvar na nuvem:", err);
-                    showToast("Salvo localmente, mas houve instabilidade na nuvem.", "warning");
                 }
             }
 
-            const purchasedNums = pendingOrder.numbers.join(', ');
+            const reservedNums = pendingOrder.numbers.join(', ');
             pendingOrder = null;
 
             btn.disabled = false;
-            btn.innerHTML = `<i class="fa-solid fa-circle-check text-lg"></i><span>Já fiz o PIX / Confirmar Compra</span>`;
+            btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i><span>Já Paguei • Enviar para Confirmação</span>`;
 
             document.getElementById('checkout-form').reset();
             closePixModal();
             renderAll();
-            showToast(`Compra confirmada! Números ${purchasedNums} garantidos.`, "success");
+            showToast(`Reserva registrada (${reservedNums})! Assim que o pagamento for conferido, aparecerá como Vendido.`, "success");
         };
 
-        window.toggleAdminModal = function() {
-            const modal = document.getElementById('admin-modal');
-            if (modal.classList.contains('hidden')) {
-                renderAdminList();
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            } else {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
+        // Export exact layout of "Arthur Gabriel dos Santos Silva.xlsx"
+        window.exportSpreadsheetCSV = function() {
+            if (!isAdminAuthenticated) return;
+            const rows = [
+                ["4ª RIFA 2026", "", ""],
+                ["Nº", "COMPRADOR", "CONTATO"]
+            ];
+
+            for (let num = START_NUM; num <= END_NUM; num++) {
+                const info = ticketsMap[num];
+                if (info && info.status === 'sold') {
+                    rows.push([num, info.name, info.phone]);
+                } else {
+                    rows.push([num, "", ""]);
+                }
             }
+
+            const csvContent = "\uFEFF" + rows.map(r => r.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "Arthur_Gabriel_dos_Santos_Silva_4_RIFA_2026.csv";
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast("Planilha baixada no formato da 4ª RIFA 2026!", "success");
         };
 
         window.toggleCloudSetupModal = function() {
             const modal = document.getElementById('cloud-setup-modal');
             if (modal.classList.contains('hidden')) {
-                const saved = localStorage.getItem(CLOUD_CFG_STORAGE_KEY);
-                if (saved) document.getElementById('custom-firebase-json').value = saved;
+                const savedCfg = localStorage.getItem(CLOUD_CFG_STORAGE_KEY);
+                if (savedCfg) document.getElementById('custom-firebase-json').value = savedCfg;
+                const savedSheets = localStorage.getItem(SHEETS_URL_STORAGE_KEY);
+                if (savedSheets) document.getElementById('sheets-webhook-input').value = savedSheets;
                 modal.classList.remove('hidden');
                 modal.classList.add('flex');
             } else {
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');
             }
+        };
+
+        window.saveSheetsWebhook = function() {
+            const url = document.getElementById('sheets-webhook-input').value.trim();
+            localStorage.setItem(SHEETS_URL_STORAGE_KEY, url);
+            showToast("Link da planilha salvo com sucesso!", "success");
         };
 
         window.saveCustomCloudConfig = async function() {
@@ -1075,12 +1380,13 @@
             }
         };
 
-        window.resetToOriginalFlyer = function() {
-            soldTickets = { ...INITIAL_FLYER_SOLD };
+        window.resetToOriginalSpreadsheet = function() {
+            if (!isAdminAuthenticated) return;
+            ticketsMap = { ...INITIAL_SPREADSHEET_TICKETS };
             selectedNumbers.clear();
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(soldTickets));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(ticketsMap));
             renderAll();
-            showToast("Cartela restaurada com os números iniciais do cartaz.", "info");
+            showToast("Cartela restaurada com os 15 bilhetes da sua planilha.", "info");
         };
 
         function showToast(message, type = 'success') {
@@ -1108,7 +1414,7 @@
             setTimeout(() => {
                 toast.classList.add('opacity-0', '-translate-y-2');
                 setTimeout(() => toast.remove(), 300);
-            }, 4000);
+            }, 4500);
         }
 
         function escapeHtml(str) {
